@@ -8,7 +8,7 @@ if (!authUrl) {
 
 // Create handlers that proxy to Neon Auth
 const handlers = authUrl
-  ? authApiHandler(authUrl)
+  ? authApiHandler()
   : {
       GET: () => new Response('Auth not configured. Set NEXT_PUBLIC_NEON_AUTH_URL environment variable.', { status: 503 }),
       POST: () => new Response('Auth not configured. Set NEXT_PUBLIC_NEON_AUTH_URL environment variable.', { status: 503 }),
