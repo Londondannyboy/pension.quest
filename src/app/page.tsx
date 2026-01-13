@@ -58,128 +58,114 @@ function DestinationCard({ destination }: { destination: Destination }) {
   const visas = destination.visas || [];
   const highlights = destination.highlights || [];
   const quickFacts = destination.quick_facts || [];
-
-  // Get first city's cost data for summary
   const primaryCity = costData[0];
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="bg-gradient-to-br from-amber-500/10 to-orange-500/10 rounded-2xl p-6 border border-amber-500/30"
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5 }}
+      className="bg-black/20 backdrop-blur-lg rounded-3xl border border-white/10 shadow-xl overflow-hidden"
     >
       {/* Header with Hero Image */}
-      {destination.hero_image_url && (
-        <div
-          className="h-40 rounded-xl mb-6 bg-cover bg-center relative overflow-hidden"
-          style={{ backgroundImage: `url(${destination.hero_image_url})` }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
-          <div className="absolute bottom-4 left-4 flex items-center gap-3">
-            <span className="text-5xl">{destination.flag}</span>
-            <div>
-              <h2 className="text-2xl font-bold text-white">{destination.country_name}</h2>
-              <p className="text-amber-300 text-sm">{destination.region}</p>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Fallback header if no image */}
-      {!destination.hero_image_url && (
-        <div className="flex items-center gap-4 mb-6">
-          <span className="text-6xl">{destination.flag}</span>
+      <div
+        className="h-60 bg-cover bg-center relative"
+        style={{ backgroundImage: `url(${destination.hero_image_url || 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800'})` }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+        <div className="absolute bottom-6 left-6 flex items-center gap-4">
+          <span className="text-6xl drop-shadow-lg">{destination.flag}</span>
           <div>
-            <h2 className="text-3xl font-bold text-white">{destination.country_name}</h2>
-            <p className="text-amber-400">{destination.region}</p>
+            <h2 className="text-4xl font-extrabold text-white" style={{ textShadow: '0 2px 5px rgba(0,0,0,0.5)' }}>{destination.country_name}</h2>
+            <p className="text-amber-300 text-lg">{destination.region}</p>
           </div>
         </div>
-      )}
+      </div>
 
-      {/* Hero Text */}
-      {destination.hero_title && (
-        <div className="mb-6">
-          <h3 className="text-xl font-semibold text-white">{destination.hero_title}</h3>
-          {destination.hero_subtitle && (
-            <p className="text-white/60 text-sm mt-1">{destination.hero_subtitle}</p>
-          )}
+      <div className="p-8">
+        {/* Hero Text */}
+        <div className="mb-8 text-center">
+          <h3 className="text-2xl font-bold text-white leading-tight">{destination.hero_title}</h3>
+          <p className="text-white/60 text-md mt-2 max-w-2xl mx-auto">{destination.hero_subtitle}</p>
         </div>
-      )}
 
-      {/* Cost of Living */}
-      {primaryCity && (
-        <div className="bg-white/5 rounded-xl p-4 mb-4">
-          <h3 className="text-sm font-medium text-white/40 mb-2">Cost of Living - {primaryCity.cityName}</h3>
-          {primaryCity.rent1BRCenter && (
-            <div className="text-lg font-bold text-emerald-400">
-              {primaryCity.currency} {primaryCity.rent1BRCenter.toLocaleString()}/mo (1BR center)
-            </div>
-          )}
-          <div className="mt-3 grid grid-cols-2 gap-2 text-xs">
-            {primaryCity.groceries && (
-              <div><span className="text-white/40">Groceries:</span> <span className="text-white/70">{primaryCity.currency} {primaryCity.groceries}</span></div>
+        <div className="grid md:grid-cols-2 gap-8">
+          {/* Left Column: Cost & Visas */}
+          <div className="space-y-8">
+            {/* Cost of Living */}
+            {primaryCity && (
+              <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                <h3 className="text-sm font-semibold text-white/50 mb-3">Cost of Living - {primaryCity.cityName}</h3>
+                {primaryCity.rent1BRCenter && (
+                  <div className="text-3xl font-bold text-emerald-400 mb-4">
+                    {primaryCity.currency} {primaryCity.rent1BRCenter.toLocaleString()}<span className="text-lg text-white/50">/mo (1BR center)</span>
+                  </div>
+                )}
+                <div className="grid grid-cols-2 gap-3 text-sm">
+                  {primaryCity.groceries && <div><span className="text-white/50">Groceries:</span> <span className="text-white/80">{primaryCity.currency} {primaryCity.groceries}</span></div>}
+                  {primaryCity.dining && <div><span className="text-white/50">Dining:</span> <span className="text-white/80">{primaryCity.currency} {primaryCity.dining}</span></div>}
+                  {primaryCity.transportation && <div><span className="text-white/50">Transport:</span> <span className="text-white/80">{primaryCity.currency} {primaryCity.transportation}</span></div>}
+                  {primaryCity.utilities && <div><span className="text-white/50">Utilities:</span> <span className="text-white/80">{primaryCity.currency} {primaryCity.utilities}</span></div>}
+                </div>
+              </div>
             )}
-            {primaryCity.dining && (
-              <div><span className="text-white/40">Dining:</span> <span className="text-white/70">{primaryCity.currency} {primaryCity.dining}</span></div>
-            )}
-            {primaryCity.transportation && (
-              <div><span className="text-white/40">Transport:</span> <span className="text-white/70">{primaryCity.currency} {primaryCity.transportation}</span></div>
-            )}
-            {primaryCity.utilities && (
-              <div><span className="text-white/40">Utilities:</span> <span className="text-white/70">{primaryCity.currency} {primaryCity.utilities}</span></div>
+
+            {/* Visa Options */}
+            {visas.length > 0 && (
+              <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                <h3 className="text-sm font-semibold text-white/50 mb-3">Visa Options</h3>
+                <div className="flex flex-wrap gap-2">
+                  {visas.map((visa) => (
+                    <span key={visa.name} className="px-3 py-1 bg-amber-500/20 text-amber-300 text-sm rounded-full">
+                      {visa.name}
+                    </span>
+                  ))}
+                </div>
+              </div>
             )}
           </div>
-          {costData.length > 1 && (
-            <div className="mt-2 text-xs text-white/40">
-              +{costData.length - 1} more cities available
-            </div>
-          )}
-        </div>
-      )}
 
-      {/* Visa Options */}
-      {visas.length > 0 && (
-        <div className="bg-white/5 rounded-xl p-4 mb-4">
-          <h3 className="text-sm font-medium text-white/40 mb-2">Visa Options</h3>
-          <div className="flex flex-wrap gap-2">
-            {visas.slice(0, 4).map((visa) => (
-              <span key={visa.name} className="px-3 py-1 bg-amber-500/20 text-amber-300 text-xs rounded-full">
-                {visa.name}
-              </span>
-            ))}
+          {/* Right Column: Highlights & Facts */}
+          <div className="space-y-8">
+            {/* Highlights */}
+            {highlights.length > 0 && (
+              <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                <h3 className="text-sm font-semibold text-white/50 mb-3">Highlights</h3>
+                <ul className="space-y-2">
+                  {highlights.map((highlight, index) => {
+                    const text = typeof highlight === 'string' ? highlight : highlight.text;
+                    const icon = typeof highlight === 'string' ? '✨' : (highlight.icon || '✨');
+                    return (
+                      <li key={index} className="flex items-start gap-3 text-white/80">
+                        <span className="text-amber-400 mt-1">{icon}</span>
+                        {text}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
+
+            {/* Quick Facts */}
+            {quickFacts.length > 0 && (
+              <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                <h3 className="text-sm font-semibold text-white/50 mb-3">Quick Facts</h3>
+                <div className="grid grid-cols-2 gap-3 text-sm">
+                {quickFacts.map((fact, index) => (
+                  <div key={index} className="flex items-center gap-2">
+                    <span className="text-lg">{fact.icon}</span>
+                    <div>
+                      <div className="text-white/50">{fact.label}</div>
+                      <div className="font-semibold text-white/80">{fact.value}</div>
+                    </div>
+                  </div>
+                ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
-      )}
-
-      {/* Highlights */}
-      {highlights.length > 0 && (
-        <div className="bg-white/5 rounded-xl p-4">
-          <h3 className="text-sm font-medium text-white/40 mb-2">Highlights</h3>
-          <ul className="space-y-1">
-            {highlights.slice(0, 5).map((highlight, index) => {
-              const text = typeof highlight === 'string' ? highlight : highlight.text;
-              const icon = typeof highlight === 'string' ? '→' : (highlight.icon || '→');
-              return (
-                <li key={index} className="flex items-start gap-2 text-white/70 text-sm">
-                  <span className="text-amber-400 mt-0.5">{icon}</span>
-                  {text}
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      )}
-
-      {/* Quick Facts */}
-      {quickFacts.length > 0 && (
-        <div className="mt-4 flex flex-wrap gap-2">
-          {quickFacts.slice(0, 4).map((fact, index) => (
-            <span key={index} className="px-2 py-1 bg-white/5 text-white/60 text-xs rounded border border-white/10">
-              {fact.icon} {fact.label}: {fact.value}
-            </span>
-          ))}
-        </div>
-      )}
+      </div>
     </motion.div>
   );
 }
@@ -187,11 +173,11 @@ function DestinationCard({ destination }: { destination: Destination }) {
 // Empty state
 function EmptyState() {
   return (
-    <div className="bg-white/5 rounded-2xl border border-white/10 p-12 text-center">
-      <div className="text-6xl mb-6">🌍</div>
-      <h3 className="text-2xl font-bold text-white mb-3">Your Relocation Journey</h3>
-      <p className="text-white/60 max-w-md mx-auto">
-        Chat with ATLAS to explore destinations. Click a country below or ask about anywhere in the world.
+    <div className="bg-black/20 backdrop-blur-md rounded-2xl border border-white/10 p-12 text-center shadow-lg">
+      <div className="text-7xl mb-6 animate-pulse">🗺️</div>
+      <h3 className="text-3xl font-bold text-white mb-4">Your Next Chapter Awaits</h3>
+      <p className="text-white/70 max-w-lg mx-auto">
+        Where in the world will your story unfold? Chat with ATLAS to explore destinations, or select a country to begin your journey.
       </p>
     </div>
   );
@@ -200,12 +186,135 @@ function EmptyState() {
 // Loading skeleton
 function LoadingSkeleton() {
   return (
-    <div className="bg-white/5 rounded-2xl border border-white/10 p-6 animate-pulse">
-      <div className="h-40 bg-white/10 rounded-xl mb-6" />
-      <div className="h-6 bg-white/10 rounded w-2/3 mb-4" />
-      <div className="h-4 bg-white/10 rounded w-1/2" />
+    <div className="bg-black/20 backdrop-blur-lg rounded-3xl border border-white/10 shadow-xl overflow-hidden animate-pulse">
+      <div className="h-60 bg-white/10" />
+      <div className="p-8">
+        <div className="h-8 bg-white/10 rounded w-2/3 mx-auto mb-4" />
+        <div className="h-4 bg-white/10 rounded w-1/2 mx-auto mb-8" />
+        <div className="grid md:grid-cols-2 gap-8">
+          <div className="space-y-8">
+            <div className="h-40 bg-white/10 rounded-xl" />
+            <div className="h-24 bg-white/10 rounded-xl" />
+          </div>
+          <div className="space-y-8">
+            <div className="h-32 bg-white/10 rounded-xl" />
+            <div className="h-32 bg-white/10 rounded-xl" />
+          </div>
+        </div>
+      </div>
     </div>
   );
+}
+
+// Chat Input Component
+function ChatInput() {
+  const [message, setMessage] = useState('');
+  const { appendMessage } = useCopilotChat();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!message.trim()) return;
+    appendMessage(new TextMessage({ content: message, role: Role.User }));
+    setMessage('');
+  };
+
+  return (
+    <form
+      onSubmit={handleSubmit}
+      className="bg-black/20 backdrop-blur-md border border-white/10 rounded-full p-2 flex items-center shadow-lg"
+    >
+      <input
+        type="text"
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+        placeholder="Ask ATLAS anything... e.g., 'Compare Portugal vs. Spain'"
+        className="w-full bg-transparent text-white placeholder-white/50 focus:outline-none px-4"
+      />
+      <button
+        type="submit"
+        className="px-6 py-2 bg-amber-500 rounded-full text-stone-900 font-semibold hover:bg-amber-400 transition-colors"
+      >
+        Send
+      </button>
+    </form>
+  );
+}
+
+// Helper to create a dashboard view from destination data
+function createDashboardView(destination: Destination): GeneratedView {
+  const primaryCity = destination.cost_of_living?.[0];
+
+  const blocks: ViewBlock[] = [];
+
+  // KPIs
+  if (primaryCity) {
+    blocks.push({
+      type: 'kpi',
+      props: {
+        label: `Rent (1BR Center) in ${primaryCity.cityName}`,
+        value: `${primaryCity.currency} ${primaryCity.rent1BRCenter?.toLocaleString()}`,
+        icon: '🏠',
+      },
+    });
+  }
+  blocks.push({
+    type: 'kpi',
+    props: {
+      label: 'Visa Options',
+      value: `${destination.visas?.length || 0} available`,
+      icon: '🛂',
+    },
+  });
+  if (destination.language) {
+    blocks.push({
+      type: 'kpi',
+      props: {
+        label: 'Official Language',
+        value: destination.language,
+        icon: '🗣️',
+      },
+    });
+  }
+
+  // Cost Chart
+  if (primaryCity) {
+    blocks.push({
+      type: 'cost_chart',
+      props: {
+        title: `Monthly Expenses in ${primaryCity.cityName}`,
+        currency: primaryCity.currency,
+        items: [
+          { label: 'Rent (1BR Center)', amount: primaryCity.rent1BRCenter || 0, currency: primaryCity.currency },
+          { label: 'Groceries', amount: primaryCity.groceries || 0, currency: primaryCity.currency },
+          { label: 'Dining Out', amount: primaryCity.dining || 0, currency: primaryCity.currency },
+          { label: 'Transportation', amount: primaryCity.transportation || 0, currency: primaryCity.currency },
+          { label: 'Utilities', amount: primaryCity.utilities || 0, currency: primaryCity.currency },
+        ].filter(i => i.amount > 0)
+      }
+    });
+  }
+
+  // Pros & Cons
+  const pros = destination.highlights?.slice(0, 5).map(h => typeof h === 'string' ? h : h.text) || [];
+  blocks.push({
+    type: 'pros_cons',
+    props: {
+      title: 'Highlights',
+      pros,
+      cons: [
+        'Bureaucracy can be slow',
+        'Language learning may be needed',
+        'Cultural adjustment period',
+      ]
+    }
+  });
+
+
+  return {
+    title: destination.country_name,
+    subtitle: destination.hero_title,
+    blocks,
+  };
 }
 
 export default function Home() {
@@ -250,22 +359,21 @@ export default function Home() {
       console.log('🌍 show_destination called for:', country);
 
       try {
-        // Try exact slug match first, then search
         const slug = country.toLowerCase().replace(/\s+/g, '-');
-        let res = await fetch(`/api/destinations?slug=${slug}`);
+        const res = await fetch(`/api/destinations?slug=${slug}`);
 
         if (!res.ok) {
-          // Try search
-          res = await fetch(`/api/destinations?search=${encodeURIComponent(country)}`);
-          if (res.ok) {
-            const results = await res.json();
+          const searchRes = await fetch(`/api/destinations?search=${encodeURIComponent(country)}`);
+          if (searchRes.ok) {
+            const results = await searchRes.json();
             if (results.length > 0) {
-              // Get full details for the first match
-              const fullRes = await fetch(`/api/destinations?slug=${results[0].slug}`);
+              const firstResult = results[0];
+              const fullRes = await fetch(`/api/destinations?slug=${firstResult.slug}`);
               if (fullRes.ok) {
                 const destination = await fullRes.json();
-                setState(prev => ({ ...prev, currentDestination: destination, customView: undefined }));
-                return `Showing ${destination.country_name}: ${destination.hero_title || 'Great destination for relocation!'}`;
+                const view = createDashboardView(destination);
+                setState(prev => ({ ...prev, currentDestination: undefined, customView: view }));
+                return `Showing dashboard for ${destination.country_name}.`;
               }
             }
           }
@@ -273,12 +381,9 @@ export default function Home() {
         }
 
         const destination = await res.json();
-        setState(prev => ({ ...prev, currentDestination: destination, customView: undefined }));
-
-        const costInfo = destination.cost_of_living?.monthly_total || 'varies';
-        const visaCount = destination.visas?.length || 0;
-
-        return `Showing ${destination.country_name}: ${destination.hero_title || 'Great for relocation!'}. Cost of living: ${costInfo}. ${visaCount} visa options available.`;
+        const view = createDashboardView(destination);
+        setState(prev => ({ ...prev, currentDestination: undefined, customView: view }));
+        return `Showing dashboard for ${destination.country_name}.`;
       } catch (error) {
         console.error('Error fetching destination:', error);
         return `Error loading destination data. Please try again.`;
@@ -513,10 +618,14 @@ This creates dynamic, tailored visualizations based on the user's specific quest
     .join(', ') || 'Loading...';
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-stone-950 via-stone-900 to-stone-950 text-white">
-      <CopilotSidebar
-        defaultOpen={true}
-        instructions={`You are ATLAS, a warm and knowledgeable relocation advisor.
+    <div
+      className="min-h-screen bg-cover bg-center text-white"
+      style={{ backgroundImage: "url('https://images.unsplash.com/photo-1539635278303-d4002c07eae3?q=80&w=2670&auto=format&fit=crop')" }}
+    >
+      <div className="min-h-screen bg-black/60">
+        <CopilotSidebar
+          defaultOpen={true}
+          instructions={`You are ATLAS, a warm and knowledgeable relocation advisor.
 
 CRITICAL RULES:
 
@@ -538,92 +647,100 @@ CRITICAL RULES:
 Be conversational and helpful. Keep responses to 2-3 sentences. After showing content, ask a follow-up question.
 
 Available countries: ${availableCountries}`}
-        labels={{
-          title: 'Chat with ATLAS',
-          initial: "Hello! I'm ATLAS, your AI relocation advisor. I can help you explore destinations worldwide with real data on visas, costs, and more.\n\nClick a destination below or tell me what you're looking for!",
-        }}
-        className="[&_.copilotKitSidebar]:bg-stone-900 [&_.copilotKitSidebar]:border-white/10"
-      >
-        {/* Main Content */}
-        <div className="min-h-screen p-8">
-          <div className="max-w-3xl mx-auto">
-            {/* Header */}
-            <motion.header
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mb-8 text-center"
-            >
-              <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-amber-400 via-orange-400 to-red-400 bg-clip-text text-transparent mb-2">
-                Relocation Quest
-              </h1>
-              <p className="text-white/60">Your AI guide to moving abroad</p>
-            </motion.header>
-
-            {/* User Preferences */}
-            {state.userPreferences && Object.keys(state.userPreferences).length > 0 && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="flex flex-wrap gap-2 mb-6 justify-center"
+          labels={{
+            title: 'Chat with ATLAS',
+            initial: "Hello! I'm ATLAS, your AI relocation advisor. I can help you explore destinations worldwide with real data on visas, costs, and more.\n\nClick a destination below or tell me what you're looking for!",
+          }}
+          className="[&_.copilotKitSidebar]:bg-stone-900/80 [&_.copilotKitSidebar]:backdrop-blur-sm [&_.copilotKitSidebar]:border-white/10"
+        >
+          {/* Main Content */}
+          <div className="min-h-screen p-8">
+            <div className="max-w-3xl mx-auto">
+              {/* Header */}
+              <motion.header
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-12 text-center"
               >
-                {state.userPreferences.budget && (
-                  <span className="px-3 py-1 bg-emerald-500/20 text-emerald-300 text-sm rounded-full">
-                    {state.userPreferences.budget}
-                  </span>
-                )}
-                {state.userPreferences.climate && (
-                  <span className="px-3 py-1 bg-blue-500/20 text-blue-300 text-sm rounded-full">
-                    {state.userPreferences.climate}
-                  </span>
-                )}
-                {state.userPreferences.purpose && (
-                  <span className="px-3 py-1 bg-purple-500/20 text-purple-300 text-sm rounded-full">
-                    {state.userPreferences.purpose}
-                  </span>
-                )}
-              </motion.div>
-            )}
+                <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-3" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>
+                  Relocation Quest
+                </h1>
+                <p className="text-white/80 text-lg">Your AI-powered guide to a new life abroad</p>
+              </motion.header>
 
-            {/* Dynamic View, Destination Card, or Empty State */}
-            {loading ? (
-              <LoadingSkeleton />
-            ) : state.customView ? (
-              <DynamicView view={state.customView} />
-            ) : state.currentDestination ? (
-              <DestinationCard destination={state.currentDestination} />
-            ) : (
-              <EmptyState />
-            )}
+              {/* User Preferences */}
+              {state.userPreferences && Object.keys(state.userPreferences).length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="flex flex-wrap gap-2 mb-6 justify-center"
+                >
+                  {state.userPreferences.budget && (
+                    <span className="px-3 py-1 bg-emerald-500/20 text-emerald-300 text-sm rounded-full">
+                      {state.userPreferences.budget}
+                    </span>
+                  )}
+                  {state.userPreferences.climate && (
+                    <span className="px-3 py-1 bg-blue-500/20 text-blue-300 text-sm rounded-full">
+                      {state.userPreferences.climate}
+                    </span>
+                  )}
+                  {state.userPreferences.purpose && (
+                    <span className="px-3 py-1 bg-purple-500/20 text-purple-300 text-sm rounded-full">
+                      {state.userPreferences.purpose}
+                    </span>
+                  )}
+                </motion.div>
+              )}
 
-            {/* Quick Topic Pills */}
-            {!loading && state.availableDestinations.length > 0 && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3 }}
-                className="mt-8"
-              >
-                <div className="flex flex-wrap justify-center gap-2">
-                  {state.availableDestinations.slice(0, 8).map((dest) => (
-                    <button
-                      key={dest.slug}
-                      onClick={() => handleTopicClick(dest.country_name)}
-                      className="px-4 py-2 text-sm rounded-full bg-white/10 hover:bg-white/20 text-white/80 hover:text-white transition-all border border-white/10 hover:border-amber-500/30"
-                    >
-                      {dest.flag} {dest.country_name}
-                    </button>
-                  ))}
-                </div>
-              </motion.div>
-            )}
+                          {/* Dynamic View, Destination Card, or Empty State */}
+                          {loading ? (
+                            <LoadingSkeleton />
+                          ) : state.customView ? (
+                            <DynamicView view={state.customView} />
+                          ) : (
+                            <EmptyState />
+                          )}
+                          {/* Chat Input */}
+                          <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.2 }}
+                            className="mt-12"
+                          >
+                            <ChatInput />
+                          </motion.div>
+              
+                          {/* Quick Topic Pills */}
+                          {!loading && state.availableDestinations.length > 0 && (
+                            <motion.div
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              transition={{ delay: 0.3 }}
+                              className="mt-8"
+                            >
+                              <div className="flex flex-wrap justify-center gap-2">
+                                <span className="text-sm text-white/50 mr-2 self-center">Or try a topic:</span>
+                                {state.availableDestinations.slice(0, 6).map((dest) => (
+                                  <button
+                                    key={dest.slug}
+                                    onClick={() => handleTopicClick(dest.country_name)}
+                                    className="px-4 py-2 text-sm rounded-full bg-white/10 hover:bg-white/20 text-white/80 hover:text-white transition-all border border-white/10 hover:border-amber-500/30"
+                                  >
+                                    {dest.flag} {dest.country_name}
+                                  </button>
+                                ))}
+                              </div>
+                            </motion.div>
+                          )}            </div>
           </div>
-        </div>
 
-        {/* Floating Voice Widget */}
-        <div className="fixed bottom-8 right-8 z-50">
-          <HumeWidget />
-        </div>
-      </CopilotSidebar>
+          {/* Floating Voice Widget */}
+          {/* <div className="fixed bottom-8 right-8 z-50">
+            <HumeWidget />
+          </div> */}
+        </CopilotSidebar>
+      </div>
     </div>
   );
 }

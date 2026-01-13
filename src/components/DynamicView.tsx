@@ -1,11 +1,11 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ComparisonTable, CostChart, ProsCons, InfoCard } from './mdx';
+import { ComparisonTable, CostChart, ProsCons, InfoCard, KPI } from './mdx';
 
 // Types for AI-generated views
 export interface ViewBlock {
-  type: 'comparison' | 'cost_chart' | 'pros_cons' | 'info_card' | 'text' | 'heading';
+  type: 'comparison' | 'cost_chart' | 'pros_cons' | 'info_card' | 'text' | 'heading' | 'kpi';
   props: Record<string, unknown>;
 }
 
@@ -37,22 +37,33 @@ export function DynamicView({ view }: DynamicViewProps) {
       )}
 
       {/* Render Blocks */}
-      {view.blocks.map((block, index) => (
-        <motion.div
-          key={index}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: index * 0.1 }}
-        >
-          {renderBlock(block)}
-        </motion.div>
-      ))}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {view.blocks.map((block, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.1 }}
+            className={`${block.type === 'comparison' || block.type === 'cost_chart' || block.type === 'pros_cons' ? 'lg:col-span-3' : 'lg:col-span-1'}`}
+          >
+            {renderBlock(block)}
+          </motion.div>
+        ))}
+      </div>
     </motion.div>
   );
 }
 
 function renderBlock(block: ViewBlock) {
   switch (block.type) {
+    case 'kpi':
+      return (
+        <KPI
+          label={block.props.label as string}
+          value={block.props.value as string}
+          icon={block.props.icon as string}
+        />
+      );
     case 'comparison':
       return (
         <ComparisonTable
