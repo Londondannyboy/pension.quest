@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { NeonAuthUIProvider, UserButton } from "@neondatabase/auth/react";
+import { authClient } from "@/lib/auth/client";
 import { Providers } from "@/components/providers";
 import "./globals.css";
 import "@copilotkit/react-ui/styles.css";
@@ -29,9 +31,18 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-stone-950 text-white`}
       >
-        <Providers>
-          {children}
-        </Providers>
+        <NeonAuthUIProvider
+          authClient={authClient!}
+          redirectTo="/account/settings"
+          emailOTP
+        >
+          <header className="fixed top-4 right-4 z-50">
+            <UserButton size="icon" />
+          </header>
+          <Providers>
+            {children}
+          </Providers>
+        </NeonAuthUIProvider>
       </body>
     </html>
   );
