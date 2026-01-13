@@ -77,9 +77,9 @@ Single-page conversational AI relocation advisor. CopilotKit Next.js runtime wit
 - [x] MDX component library
 - [x] generate_custom_view action for dynamic compositions
 - [x] Visual demo of MDX capability (test "Compare Portugal vs Spain")
-- [x] Neon Auth (@stackframe/stack)
+- [x] Neon Auth (@stackframe/stack) - conditional, needs domain-specific keys
 - [x] Hume voice widget
-- [ ] Deploy to Vercel
+- [x] Deploy to Vercel - https://relocation-quest-v3.vercel.app
 
 ---
 
