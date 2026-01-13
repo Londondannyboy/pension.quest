@@ -35,6 +35,7 @@ export default function RootLayout({
           authClient={authClient!}
           redirectTo="/account/settings"
           emailOTP
+          social={{ providers: ['google'] }}
         >
           <header className="fixed top-0 left-0 right-0 h-14 bg-stone-950/90 backdrop-blur-sm border-b border-stone-800 z-[9999] flex items-center justify-end px-4">
             <UserButton size="icon" />
