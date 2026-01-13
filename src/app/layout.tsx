@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { StackProvider, StackTheme } from "@stackframe/stack";
+import { stackServerApp } from "@/stack/server";
 import { Providers } from "@/components/providers";
 import "./globals.css";
 import "@copilotkit/react-ui/styles.css";
@@ -25,13 +27,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-stone-950 text-white`}
       >
-        <Providers>
-          {children}
-        </Providers>
+        <StackProvider app={stackServerApp}>
+          <StackTheme>
+            <Providers>
+              {children}
+            </Providers>
+          </StackTheme>
+        </StackProvider>
       </body>
     </html>
   );

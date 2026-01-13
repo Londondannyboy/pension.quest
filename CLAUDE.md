@@ -28,6 +28,11 @@ Single-page conversational AI relocation advisor. CopilotKit Next.js runtime wit
 | Database queries | `src/lib/db.ts` |
 | MDX components | `src/components/mdx/` |
 | Dynamic view renderer | `src/components/DynamicView.tsx` |
+| Hume voice widget | `src/components/HumeWidget.tsx` |
+| Hume token API | `src/app/api/hume-token/route.ts` |
+| Stack Auth client | `stack/client.ts` |
+| Stack Auth server | `stack/server.ts` |
+| Auth handler | `src/app/handler/[...stack]/page.tsx` |
 
 ---
 
@@ -71,9 +76,9 @@ Single-page conversational AI relocation advisor. CopilotKit Next.js runtime wit
 - [x] Neon database connection (17 destinations)
 - [x] MDX component library
 - [x] generate_custom_view action for dynamic compositions
-- [ ] Visual demo of MDX capability (test "Compare Portugal vs Spain")
-- [ ] Neon Auth (@stackframe/stack)
-- [ ] Hume voice widget
+- [x] Visual demo of MDX capability (test "Compare Portugal vs Spain")
+- [x] Neon Auth (@stackframe/stack)
+- [x] Hume voice widget
 - [ ] Deploy to Vercel
 
 ---
@@ -96,16 +101,29 @@ Try these in the chat:
 | AI Chat | CopilotKit (Next.js runtime + Gemini adapter) |
 | Database | Neon PostgreSQL (@neondatabase/serverless) |
 | Animation | Framer Motion |
-| Voice | Hume EVI (pending) |
-| Auth | Neon Auth/@stackframe/stack (pending) |
+| Voice | Hume EVI (@humeai/voice-react) |
+| Auth | Neon Auth (@stackframe/stack) |
 
 ---
 
 ## Environment Variables
 
 ```bash
+# Database
 DATABASE_URL=postgresql://neondb_owner:...@ep-wandering-leaf-ab17v6rr-pooler.eu-west-2.aws.neon.tech/neondb
-GOOGLE_API_KEY=...  # For Gemini via CopilotKit
+
+# CopilotKit (Gemini)
+GOOGLE_API_KEY=...
+
+# Hume EVI
+HUME_API_KEY=...
+HUME_SECRET_KEY=...
+NEXT_PUBLIC_HUME_CONFIG_ID=...
+
+# Neon Auth (Stack Auth)
+NEXT_PUBLIC_STACK_PROJECT_ID=...
+NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY=...
+STACK_SECRET_SERVER_KEY=...
 ```
 
 ---

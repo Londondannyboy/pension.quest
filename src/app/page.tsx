@@ -6,6 +6,7 @@ import { useCopilotAction, useCopilotReadable, useCopilotChat } from '@copilotki
 import { Role, TextMessage } from '@copilotkit/runtime-client-gql';
 import { motion } from 'framer-motion';
 import { DynamicView, GeneratedView } from '@/components/DynamicView';
+import { HumeWidget } from '@/components/HumeWidget';
 
 // Types matching database schema
 interface Destination {
@@ -616,6 +617,11 @@ Available countries: ${availableCountries}`}
               </motion.div>
             )}
           </div>
+        </div>
+
+        {/* Floating Voice Widget */}
+        <div className="fixed bottom-8 right-8 z-50">
+          <HumeWidget />
         </div>
       </CopilotSidebar>
     </div>
