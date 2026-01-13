@@ -30,9 +30,12 @@ Single-page conversational AI relocation advisor. CopilotKit Next.js runtime wit
 | Dynamic view renderer | `src/components/DynamicView.tsx` |
 | Hume voice widget | `src/components/HumeWidget.tsx` |
 | Hume token API | `src/app/api/hume-token/route.ts` |
-| Stack Auth client | `stack/client.ts` |
-| Stack Auth server | `stack/server.ts` |
-| Auth handler | `src/app/handler/[...stack]/page.tsx` |
+| Neon Auth client | `src/lib/auth/client.ts` |
+| Neon Auth server | `src/lib/auth/server.ts` |
+| Auth API handler | `src/app/api/auth/[...path]/route.ts` |
+| Auth pages | `src/app/auth/[path]/page.tsx` |
+| Account pages | `src/app/account/[path]/page.tsx` |
+| Auth middleware | `middleware.ts` |
 
 ---
 
@@ -42,7 +45,7 @@ Single-page conversational AI relocation advisor. CopilotKit Next.js runtime wit
 |--------|---------|
 | `show_destination` | Display single destination card from Neon |
 | `save_preferences` | Save user budget/climate/purpose |
-| `generate_custom_view` | **NEW**: AI-composed MDX layouts (comparison, cost breakdown, pros/cons) |
+| `generate_custom_view` | AI-composed MDX layouts (comparison, cost breakdown, pros/cons) |
 
 ---
 
@@ -68,6 +71,32 @@ Single-page conversational AI relocation advisor. CopilotKit Next.js runtime wit
 
 ---
 
+## Neon Auth
+
+Authentication powered by Neon Auth (`@neondatabase/auth`).
+
+**Docs**:
+- https://neon.com/docs/auth/quick-start/nextjs
+- https://neon.com/docs/auth/quick-start/nextjs-api-only
+
+**Setup**:
+1. Enable Auth in Neon Console → Project → Branch → Auth
+2. Copy `NEON_AUTH_BASE_URL` from Configuration
+3. Add to `.env.local`
+
+**Routes**:
+- `/auth/sign-in` - Sign in page
+- `/auth/sign-up` - Sign up page
+- `/account/settings` - Account settings (protected)
+
+**Components**:
+- `NeonAuthUIProvider` - Wraps app with auth context
+- `UserButton` - User avatar/menu component
+- `AuthView` - Auth form component
+- `AccountView` - Account settings component
+
+---
+
 ## Implementation Status
 
 - [x] Next.js 15 project setup
@@ -76,8 +105,8 @@ Single-page conversational AI relocation advisor. CopilotKit Next.js runtime wit
 - [x] Neon database connection (17 destinations)
 - [x] MDX component library
 - [x] generate_custom_view action for dynamic compositions
-- [x] Visual demo of MDX capability (test "Compare Portugal vs Spain")
-- [x] Neon Auth (@stackframe/stack) - conditional, needs domain-specific keys
+- [x] Visual demo of MDX capability
+- [x] Neon Auth (@neondatabase/auth)
 - [x] Hume voice widget
 - [x] Deploy to Vercel - https://relocation-quest-v3.vercel.app
 
@@ -102,7 +131,7 @@ Try these in the chat:
 | Database | Neon PostgreSQL (@neondatabase/serverless) |
 | Animation | Framer Motion |
 | Voice | Hume EVI (@humeai/voice-react) |
-| Auth | Neon Auth (@stackframe/stack) |
+| Auth | Neon Auth (@neondatabase/auth) |
 
 ---
 
@@ -110,7 +139,7 @@ Try these in the chat:
 
 ```bash
 # Database
-DATABASE_URL=postgresql://neondb_owner:...@ep-wandering-leaf-ab17v6rr-pooler.eu-west-2.aws.neon.tech/neondb
+DATABASE_URL=postgresql://neondb_owner:...@ep-xxx.neon.tech/neondb
 
 # CopilotKit (Gemini)
 GOOGLE_API_KEY=...
@@ -120,10 +149,8 @@ HUME_API_KEY=...
 HUME_SECRET_KEY=...
 NEXT_PUBLIC_HUME_CONFIG_ID=...
 
-# Neon Auth (Stack Auth)
-NEXT_PUBLIC_STACK_PROJECT_ID=...
-NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY=...
-STACK_SECRET_SERVER_KEY=...
+# Neon Auth (from Neon Console → Project → Branch → Auth → Configuration)
+NEON_AUTH_BASE_URL=https://ep-xxx.neonauth.us-east-1.aws.neon.tech/neondb/auth
 ```
 
 ---
