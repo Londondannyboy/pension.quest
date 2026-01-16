@@ -188,6 +188,33 @@ export interface PropertyMarket {
   }>;
 }
 
+export interface EducationData {
+  system?: {
+    type: string;
+    compulsoryAges?: string;
+    schoolYear?: string;
+    mainLanguage?: string;
+    englishAvailability?: string;
+  };
+  schools?: Array<{
+    name: string;
+    type: 'international' | 'british' | 'american' | 'ib' | 'local' | 'bilingual';
+    city: string;
+    annualFeeEur?: number;
+    curriculum?: string;
+    ages?: string;
+    rating?: number;
+    website?: string;
+  }>;
+  universities?: Array<{
+    name: string;
+    city: string;
+    ranking?: string;
+    type?: string;
+  }>;
+  notes?: string[];
+}
+
 // Main Destination interface
 export interface Destination {
   slug: string;
@@ -233,6 +260,7 @@ export interface Destination {
   comparison_highlights?: ComparisonHighlights;
   images?: Images;
   property_market?: PropertyMarket;
+  education_data?: EducationData;
 }
 
 // ============================================
@@ -265,7 +293,8 @@ export async function getDestination(slug: string): Promise<Destination | null> 
         COALESCE(digital_nomad_info, '{}'::jsonb) as digital_nomad_info,
         COALESCE(comparison_highlights, '{}'::jsonb) as comparison_highlights,
         COALESCE(images, '{}'::jsonb) as images,
-        COALESCE(property_market, '{}'::jsonb) as property_market
+        COALESCE(property_market, '{}'::jsonb) as property_market,
+        COALESCE(education_data, '{}'::jsonb) as education_data
       FROM destinations
       WHERE slug = ${slug.toLowerCase()} AND enabled = true
     `;

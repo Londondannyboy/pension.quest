@@ -12,6 +12,7 @@ import {
   RestaurantGuide,
   QualityOfLifeRadar,
   PropertyPrices,
+  EducationGuide,
 } from './mdx';
 
 // Types for AI-generated views
@@ -29,7 +30,8 @@ export interface ViewBlock {
     | 'restaurant'
     | 'quality_of_life'
     | 'section_header'
-    | 'property';
+    | 'property'
+    | 'education';
   props: Record<string, unknown>;
 }
 
@@ -89,7 +91,7 @@ function getBlockColSpan(type: ViewBlock['type']): string {
   ];
 
   // Half-width blocks
-  const halfWidthBlocks = ['climate', 'restaurant', 'quality_of_life', 'property'];
+  const halfWidthBlocks = ['climate', 'restaurant', 'quality_of_life', 'property', 'education'];
 
   if (fullWidthBlocks.includes(type)) return 'lg:col-span-3';
   if (halfWidthBlocks.includes(type)) return 'lg:col-span-2 md:col-span-2';
@@ -286,6 +288,44 @@ function renderBlock(block: ViewBlock) {
           foreignOwnershipAllowed={block.props.foreignOwnershipAllowed as boolean}
           mortgageAvailable={block.props.mortgageAvailable as boolean}
           typicalDepositPercent={block.props.typicalDepositPercent as number}
+        />
+      );
+
+    case 'education':
+      return (
+        <EducationGuide
+          country={block.props.country as string}
+          flag={block.props.flag as string}
+          system={
+            block.props.system as {
+              type: string;
+              compulsoryAges?: string;
+              schoolYear?: string;
+              mainLanguage?: string;
+              englishAvailability?: string;
+            }
+          }
+          schools={
+            block.props.schools as Array<{
+              name: string;
+              type: 'international' | 'british' | 'american' | 'ib' | 'local' | 'bilingual';
+              city: string;
+              annualFeeEur?: number;
+              curriculum?: string;
+              ages?: string;
+              rating?: number;
+              website?: string;
+            }>
+          }
+          universities={
+            block.props.universities as Array<{
+              name: string;
+              city: string;
+              ranking?: string;
+              type?: string;
+            }>
+          }
+          notes={block.props.notes as string[]}
         />
       );
 

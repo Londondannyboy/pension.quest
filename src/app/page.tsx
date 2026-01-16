@@ -118,6 +118,32 @@ interface Destination {
       }>;
     }>;
   };
+  education_data?: {
+    system?: {
+      type: string;
+      compulsoryAges?: string;
+      schoolYear?: string;
+      mainLanguage?: string;
+      englishAvailability?: string;
+    };
+    schools?: Array<{
+      name: string;
+      type: 'international' | 'british' | 'american' | 'ib' | 'local' | 'bilingual';
+      city: string;
+      annualFeeEur?: number;
+      curriculum?: string;
+      ages?: string;
+      rating?: number;
+      website?: string;
+    }>;
+    universities?: Array<{
+      name: string;
+      city: string;
+      ranking?: string;
+      type?: string;
+    }>;
+    notes?: string[];
+  };
 }
 
 interface RelocationState {
@@ -479,6 +505,21 @@ function createDashboardView(destination: Destination): GeneratedView {
         foreignOwnershipAllowed: destination.property_market.foreignOwnershipAllowed,
         mortgageAvailable: destination.property_market.mortgageAvailable,
         typicalDepositPercent: destination.property_market.typicalDepositPercent,
+      },
+    });
+  }
+
+  // === EDUCATION ===
+  if (destination.education_data && (destination.education_data.schools?.length || destination.education_data.universities?.length)) {
+    blocks.push({
+      type: 'education',
+      props: {
+        country: destination.country_name,
+        flag: destination.flag,
+        system: destination.education_data.system,
+        schools: destination.education_data.schools,
+        universities: destination.education_data.universities,
+        notes: destination.education_data.notes,
       },
     });
   }
