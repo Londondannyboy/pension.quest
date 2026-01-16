@@ -219,6 +219,70 @@ Country content in `scripts/data/<country>.js`. Cyprus is the template.
 
 ---
 
+## Phase 7: Dashboard & User Profiles
+
+**Goal**: Personalized dashboard with onboarding wizard based on user persona.
+
+### New Database Tables
+
+| Table | Purpose |
+|-------|---------|
+| `user_profiles` | User relocation preferences, persona, priorities |
+| `user_conversations` | AI conversation history for memory |
+| `user_saved_items` | Saved destinations/guides |
+
+### User Personas
+
+| Persona | Description |
+|---------|-------------|
+| `company` | Corporate relocation |
+| `hnw` | High net worth individual |
+| `digital_nomad` | Remote worker |
+| `lifestyle` | Quality of life seeker |
+| `family` | Family with children |
+| `retiree` | Retirement relocation |
+
+### New Routes
+
+| Route | Purpose |
+|-------|---------|
+| `/dashboard` | User dashboard with onboarding |
+| `/api/user-profile` | GET/POST user profile data |
+
+### New Components
+
+| Component | Path | Purpose |
+|-----------|------|---------|
+| `DashboardClient` | `src/app/dashboard/DashboardClient.tsx` | Onboarding wizard + dashboard |
+| `VoiceChatSync` | `src/components/voice/VoiceChatSync.tsx` | Syncs Hume voice to CopilotKit chat |
+| `SyncedVoiceButton` | `src/components/voice/VoiceChatSync.tsx` | Voice button with chat sync |
+
+---
+
+## Known Issues / TODO
+
+### High Priority
+- [ ] **No Unsplash API key** - Add `UNSPLASH_ACCESS_KEY` to .env.local for dynamic images
+- [ ] **CopilotKit sidebar needs interactive updates** - When user chats, sidebar should show graphs/visualizations
+- [ ] **Agent doesn't know user name** - Need to pass user profile to CopilotKit context properly
+- [ ] **No Zep integration** - Memory layer not connected
+- [ ] **Pydantic AI agent not deployed** - Railway agent needs setup for this project
+
+### Medium Priority
+- [ ] Improve visualizations (refer to fractional.quest pattern)
+- [ ] Port full legacy Cyprus content
+- [ ] Add more destination fallback images
+
+---
+
+## Reference Projects
+
+| Project | Pattern |
+|---------|---------|
+| `fractional.quest` | Good example of CopilotKit + sidebar visualizations |
+
+---
+
 ## Session Log
 
 ### Jan 16, 2026
@@ -226,3 +290,12 @@ Country content in `scripts/data/<country>.js`. Cyprus is the template.
 - Applied Phase 6 to correct V3 codebase
 - Created page_contexts and topic_clusters tables
 - Cyprus template populated as first example
+
+### Jan 16, 2026 (Session 2)
+- Redesigned destination pages: chat on RIGHT, voice bottom-left
+- Added nav bar with white font (fixed visibility)
+- Added dashboard with 6-step onboarding wizard
+- Created user_profiles, user_conversations, user_saved_items tables
+- Added VoiceChatSync for voice-chat integration
+- Added static fallback images for Cyprus (no Unsplash key)
+- Fixed navbar visibility (solid dark background)

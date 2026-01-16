@@ -88,10 +88,35 @@ interface UnsplashImage {
   credit?: { name: string; link: string };
 }
 
+// Static fallback images for when Unsplash isn't configured
+const FALLBACK_IMAGES: Record<string, { hero: string; gallery: string[] }> = {
+  cyprus: {
+    hero: 'https://images.unsplash.com/photo-1580225124323-12dd7118892e?w=1920&q=80', // Cyprus coast
+    gallery: [
+      'https://images.unsplash.com/photo-1580225124323-12dd7118892e?w=800&q=80',
+      'https://images.unsplash.com/photo-1564959130747-897fb406b9af?w=800&q=80',
+      'https://images.unsplash.com/photo-1586165368502-1bad197a6461?w=800&q=80',
+      'https://images.unsplash.com/photo-1600520601498-3ff594c1ab19?w=800&q=80',
+    ],
+  },
+  portugal: {
+    hero: 'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=1920&q=80',
+    gallery: [],
+  },
+  spain: {
+    hero: 'https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=1920&q=80',
+    gallery: [],
+  },
+  default: {
+    hero: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1920&q=80', // Travel
+    gallery: [],
+  },
+};
+
 // Nav Bar Component
-function NavBar({ countryName }: { countryName: string }) {
+function NavBar() {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/60 to-transparent">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-md border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -100,34 +125,24 @@ function NavBar({ countryName }: { countryName: string }) {
             <span className="text-white font-bold text-lg">Relocation<span className="text-amber-400">Quest</span></span>
           </Link>
 
-          {/* Nav Links */}
-          <div className="hidden md:flex items-center gap-8">
+          {/* Nav Links - Always visible */}
+          <div className="flex items-center gap-4 md:gap-8">
             <Link href="/destinations" className="text-white/90 hover:text-white text-sm font-medium transition-colors">
               Destinations
             </Link>
-            <Link href="/guides" className="text-white/90 hover:text-white text-sm font-medium transition-colors">
-              Guides
+            <Link href="/dashboard" className="text-white/90 hover:text-white text-sm font-medium transition-colors hidden sm:block">
+              Dashboard
             </Link>
-            <Link href="/tools" className="text-white/90 hover:text-white text-sm font-medium transition-colors">
-              Tools
-            </Link>
-            <Link href="/auth/sign-in" className="text-white/90 hover:text-white text-sm font-medium transition-colors">
+            <Link href="/auth/sign-in" className="text-white/90 hover:text-white text-sm font-medium transition-colors hidden sm:block">
               Sign In
             </Link>
             <Link
-              href="/auth/sign-up"
+              href="/dashboard"
               className="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
             >
               Get Started
             </Link>
           </div>
-
-          {/* Mobile menu button */}
-          <button className="md:hidden text-white p-2">
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
         </div>
       </div>
     </nav>
@@ -273,29 +288,53 @@ export default function DestinationClient({ slug, destination }: DestinationClie
   const [cityImages, setCityImages] = useState<Record<string, UnsplashImage>>({});
   const [activeSection, setActiveSection] = useState<'overview' | 'cities' | 'visas' | 'jobs' | 'lifestyle'>('overview');
 
-  // Fetch Unsplash images
+  // Get fallback images for this destination
+  const fallbackData = FALLBACK_IMAGES[slug] || FALLBACK_IMAGES.default;
+
+  // Fetch Unsplash images or use fallbacks
   useEffect(() => {
-    // Hero image
+    // Hero image - use fallback if no database image
     if (!destination.hero_image_url) {
+      // Try Unsplash first
       fetch(`/api/unsplash?query=${encodeURIComponent(destination.country_name + ' landscape scenic')}&count=1`)
         .then(res => res.json())
         .then(data => {
-          if (data.images?.[0]?.url) {
+          if (data.images?.[0]?.url && !data.images[0].fallback) {
             setHeroImage(data.images[0].url);
+          } else {
+            // Use static fallback
+            setHeroImage(fallbackData.hero);
           }
         })
-        .catch(() => {});
+        .catch(() => {
+          setHeroImage(fallbackData.hero);
+        });
     }
 
-    // Gallery images
+    // Gallery images - try Unsplash, fall back to static
     fetch(`/api/unsplash?query=${encodeURIComponent(destination.country_name + ' travel tourism')}&count=6`)
       .then(res => res.json())
       .then(data => {
-        if (data.images) {
+        if (data.images && data.images.length > 0 && !data.images[0].fallback) {
           setGalleryImages(data.images);
+        } else if (fallbackData.gallery.length > 0) {
+          // Use static fallbacks
+          setGalleryImages(fallbackData.gallery.map((url, i) => ({
+            id: `fallback-${i}`,
+            url,
+            alt: `${destination.country_name} scene`,
+          })));
         }
       })
-      .catch(() => {});
+      .catch(() => {
+        if (fallbackData.gallery.length > 0) {
+          setGalleryImages(fallbackData.gallery.map((url, i) => ({
+            id: `fallback-${i}`,
+            url,
+            alt: `${destination.country_name} scene`,
+          })));
+        }
+      });
 
     // City images
     const costCities = Array.isArray(destination.cost_of_living) ? destination.cost_of_living : [];
@@ -303,13 +342,13 @@ export default function DestinationClient({ slug, destination }: DestinationClie
       fetch(`/api/unsplash?query=${encodeURIComponent(city.cityName + ' ' + destination.country_name + ' city')}&count=1`)
         .then(res => res.json())
         .then(data => {
-          if (data.images?.[0]) {
+          if (data.images?.[0] && !data.images[0].fallback) {
             setCityImages(prev => ({ ...prev, [city.cityName]: data.images[0] }));
           }
         })
         .catch(() => {});
     });
-  }, [destination.country_name, destination.hero_image_url, destination.cost_of_living]);
+  }, [destination.country_name, destination.hero_image_url, destination.cost_of_living, slug, fallbackData]);
 
   // Make destination data readable to CopilotKit
   useCopilotReadable({
@@ -360,14 +399,18 @@ export default function DestinationClient({ slug, destination }: DestinationClie
       <VoiceChatProvider>
         <div className="min-h-screen bg-slate-50">
           {/* Navigation */}
-          <NavBar countryName={destination.country_name} />
+          <NavBar />
 
         {/* Hero Section */}
         <div
-          className="relative h-[70vh] min-h-[500px] bg-cover bg-center"
-          style={{ backgroundImage: heroImage ? `url(${heroImage})` : undefined }}
+          className="relative h-[70vh] min-h-[500px] bg-cover bg-center pt-16"
+          style={{
+            backgroundImage: heroImage
+              ? `url(${heroImage})`
+              : `linear-gradient(135deg, #1e3a5f 0%, #0c4a6e 50%, #164e63 100%)`,
+          }}
         >
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/70" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/70" />
 
           {/* Hero Content - Centered */}
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
