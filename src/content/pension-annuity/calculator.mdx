@@ -1,0 +1,146 @@
+---
+title: "Pension Annuity Calculator"
+description: "Calculate how much annuity income you could get from your pension pot. See estimated rates and compare your options."
+keywords:
+  - pension annuity calculator
+  - annuity calculator
+  - annuity rates calculator
+  - how much annuity
+  - annuity income calculator
+targetKeyword: "pension annuity calculator"
+volume: 5400
+difficulty: 15
+cpc: 2.45
+cluster: "pension-annuity"
+pillar: false
+author: "Pension Quest"
+publishedDate: "2025-01-17"
+modifiedDate: "2025-01-17"
+readingTime: 6
+unsplashQuery: "calculator retirement income"
+---
+
+<KeyTakeaways items={[
+  "Annuity income depends on age, pot size, and options chosen",
+  "Current rates: approximately 6-7% at age 65",
+  "Health conditions can increase your rate by up to 40%",
+  "Shop around - rates vary significantly between providers",
+  "Joint life and escalation reduce your starting income"
+]} />
+
+Use this guide to **estimate your annuity income** from your pension pot.
+
+## Quick Estimate Table
+
+<DataTable
+  title="Estimated Annual Annuity Income (Age 65)"
+  columns={[
+    { key: "pot", header: "Pension Pot" },
+    { key: "single", header: "Single Life", highlight: true },
+    { key: "joint", header: "Joint (50%)" },
+    { key: "monthly", header: "Monthly (Single)" }
+  ]}
+  data={[
+    { pot: "£50,000", single: "~£3,250", joint: "~£2,900", monthly: "~£271" },
+    { pot: "£100,000", single: "~£6,500", joint: "~£5,800", monthly: "~£542" },
+    { pot: "£150,000", single: "~£9,750", joint: "~£8,700", monthly: "~£813" },
+    { pot: "£200,000", single: "~£13,000", joint: "~£11,600", monthly: "~£1,083" },
+    { pot: "£300,000", single: "~£19,500", joint: "~£17,400", monthly: "~£1,625" },
+    { pot: "£500,000", single: "~£32,500", joint: "~£29,000", monthly: "~£2,708" }
+  ]}
+  caption="Level annuity, no guarantee period. Rates are indicative and change frequently."
+/>
+
+## Rates by Age
+
+<DataTable
+  title="Annuity Rates by Age (Per £100k Pot)"
+  columns={[
+    { key: "age", header: "Age" },
+    { key: "rate", header: "Approx Rate", highlight: true },
+    { key: "income", header: "Annual Income" }
+  ]}
+  data={[
+    { age: "55", rate: "~4.8%", income: "£4,800" },
+    { age: "60", rate: "~5.5%", income: "£5,500" },
+    { age: "65", rate: "~6.5%", income: "£6,500" },
+    { age: "70", rate: "~7.8%", income: "£7,800" },
+    { age: "75", rate: "~9.5%", income: "£9,500" }
+  ]}
+  caption="Single life, level, no guarantee. Rates improve with age."
+/>
+
+## Impact of Options
+
+<DataTable
+  title="How Options Affect Your Income (£200k pot, age 65)"
+  columns={[
+    { key: "option", header: "Option" },
+    { key: "income", header: "Annual Income", highlight: true },
+    { key: "change", header: "vs Basic" }
+  ]}
+  data={[
+    { option: "Single life, level, no guarantee", income: "£13,000", change: "Baseline" },
+    { option: "Joint life (50%)", income: "£11,600", change: "-11%" },
+    { option: "10-year guarantee", income: "£12,500", change: "-4%" },
+    { option: "3% escalation", income: "£9,100", change: "-30%" },
+    { option: "Index-linked (RPI)", income: "£7,800", change: "-40%" }
+  ]}
+/>
+
+## Enhanced Annuity Boost
+
+<DataTable
+  title="Potential Enhanced Rates (£200k pot, age 65)"
+  columns={[
+    { key: "condition", header: "Health Condition" },
+    { key: "boost", header: "Rate Boost" },
+    { key: "income", header: "Annual Income", highlight: true }
+  ]}
+  data={[
+    { condition: "Standard (healthy)", boost: "Baseline", income: "£13,000" },
+    { condition: "Smoker", boost: "+10-15%", income: "£14,300-14,950" },
+    { condition: "Type 2 diabetes", boost: "+15-20%", income: "£14,950-15,600" },
+    { condition: "Heart condition", boost: "+20-30%", income: "£15,600-16,900" }
+  ]}
+/>
+
+<Callout type="tip" title="Always Check Enhanced Rates">
+Even minor health issues can boost your annuity. Always get enhanced quotes alongside standard ones.
+</Callout>
+
+## FAQs
+
+<FAQAccordion
+  title="Common Questions"
+  items={[
+    {
+      question: "How accurate are annuity calculators?",
+      answer: "They provide estimates only. Actual rates depend on your exact circumstances and change daily. Always get personalised quotes from providers."
+    },
+    {
+      question: "Why do annuity rates improve with age?",
+      answer: "Because older people have shorter life expectancy, the insurer expects to pay for fewer years, so they can afford to pay more per year."
+    },
+    {
+      question: "Should I wait to buy an annuity?",
+      answer: "Possibly. Rates improve with age. Many use drawdown early in retirement and buy an annuity later when rates are better and security becomes more important."
+    }
+  ]}
+/>
+
+<ExternalLinkCard
+  href="https://www.moneyhelper.org.uk/en/pensions-and-retirement/taking-your-pension/annuity-comparison"
+  title="Get Annuity Quotes"
+  source="MoneyHelper"
+  description="Compare annuity rates from multiple providers"
+  trusted={true}
+/>
+
+## Related Guides
+
+<RelatedArticles
+  cluster="pension-annuity"
+  currentSlug="calculator"
+  limit={4}
+/>
