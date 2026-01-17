@@ -1,106 +1,104 @@
-# Relocation Quest V3 - Product Requirements Document
+# Pension Quest - Product Requirements Document
 
 > This is the **north star document**. All development decisions reference this PRD.
 
 ## Vision
 
-An AI-powered relocation advisor (ATLAS) that helps people explore international destinations through conversational chat and voice, providing real data on visas, costs, taxes, and lifestyle factors.
+An AI-powered UK pension education platform that helps people understand pensions, retirement planning, and related financial topics through comprehensive guides, calculators, and conversational AI assistance.
 
 ## Problem Statement
 
-People considering international relocation face information overload. Visa requirements, cost of living, tax implications, and lifestyle factors are scattered across government sites, expat forums, and outdated blog posts. There's no single source that:
-- Provides structured, comparable data across destinations
+UK pension information is confusing and fragmented. State Pension rules, workplace pensions, SIPPs, tax relief, and retirement options are spread across government sites, provider websites, and outdated articles. There's no single source that:
+- Explains pension concepts in plain English
+- Provides structured, comparable information
 - Answers follow-up questions conversationally
-- Remembers user preferences and context
-- Works via both text and voice
+- Covers all pension types comprehensively
+- Is consistently up-to-date with UK regulations
 
 ## Target Users
 
 | User Type | Description | Primary Need |
 |-----------|-------------|--------------|
-| Digital Nomads | Remote workers seeking tax-friendly, visa-friendly destinations | Visa options, internet quality, cost of living |
-| Expats/Retirees | People planning permanent international moves | Residency paths, healthcare, tax implications |
-| Tax-Conscious Professionals | High earners exploring legal tax optimization | Corporate tax rates, NHR/Beckham Law programs |
+| First-Time Savers | Young workers enrolling in workplace pension | Basic understanding of auto-enrolment, contributions |
+| Mid-Career Professionals | 30-50 year olds planning retirement | Consolidation, SIPP vs workplace, tax relief optimisation |
+| Pre-Retirees | 55+ approaching retirement | Drawdown vs annuity, State Pension timing, tax efficiency |
+| Pension Holders | Anyone with existing pensions | Understanding statements, transfer options, inheritance |
 
 ## Core Features
 
-### 1. Destination Explorer
+### 1. Content Clusters (Guides)
 
-**User Story**: As a potential relocator, I want to ask about any destination and see structured data so that I can quickly assess if it fits my needs.
-
-**Acceptance Criteria**:
-- [x] User can ask "Tell me about Portugal" and see destination card
-- [x] Card shows: cost of living, visa options, highlights, quick facts
-- [x] Data comes from Neon database (17 destinations)
-- [x] Visual presentation with hero images and animations
-
-### 2. Country Comparisons
-
-**User Story**: As a potential relocator, I want to compare two destinations side-by-side so that I can make an informed choice.
+**User Story**: As a pension holder, I want to read comprehensive guides on pension topics so I can understand my options.
 
 **Acceptance Criteria**:
-- [x] User can ask "Compare Portugal vs Spain"
-- [x] Shows ComparisonTable with flags, costs, visa info
-- [x] Highlights differences in key metrics
-- [x] Supports focus areas: cost, visa, lifestyle
+- [x] Pillar pages for each major topic
+- [x] Supporting pages with detailed information
+- [x] SEO-optimised content with keywords
+- [x] Internal linking between related content
+- [x] External links to authoritative sources (GOV.UK)
 
-### 3. Cost of Living Breakdown
+**Completed Clusters (74 pages)**:
+- [x] State Pension (10 pages)
+- [x] Workplace Pension (11 pages)
+- [x] SIPP (9 pages)
+- [x] Pension Drawdown (7 pages)
+- [x] Pension Annuity (5 pages)
+- [x] Retirement Age (6 pages)
+- [x] Pension Inheritance (7 pages)
+- [x] Final Salary/DB (6 pages)
+- [x] Pension Transfers (7 pages)
+- [x] Pension Tax Relief (6 pages)
 
-**User Story**: As a potential relocator, I want to see detailed monthly expenses so that I can budget accurately.
+### 2. AI Pension Advisor (Phase 2)
 
-**Acceptance Criteria**:
-- [x] User can ask "Show me cost breakdown for Lisbon"
-- [x] Shows CostChart with rent, groceries, dining, transport, utilities
-- [x] Visual bar chart format with animations
-- [x] Currency displayed correctly per destination
-
-### 4. Pros & Cons Analysis
-
-**User Story**: As a potential relocator, I want to understand the trade-offs of each destination so that I can set realistic expectations.
-
-**Acceptance Criteria**:
-- [x] User can ask "Pros and cons of moving to Thailand"
-- [x] Shows two-column ProsCons component
-- [x] Pros pulled from destination highlights
-- [x] Cons include common relocation challenges
-
-### 5. Voice Interaction
-
-**User Story**: As a user, I want to speak with ATLAS hands-free so that I can research while multitasking.
+**User Story**: As a user, I want to ask questions about my pension situation and get personalised guidance.
 
 **Acceptance Criteria**:
-- [ ] Hume EVI widget available on page
-- [ ] Voice queries routed to same agent as chat (Single Brain)
-- [ ] Responses streamed back as speech
-- [ ] Low latency conversational experience
+- [ ] CopilotKit chat interface
+- [ ] Knowledge of UK pension regulations
+- [ ] Ability to explain content from guides
+- [ ] Disclaimer that it's not financial advice
+- [ ] Suggestion to consult GOV.UK and professionals
 
-### 6. User Preferences
+### 3. Voice Interaction (Phase 2)
 
-**User Story**: As a returning user, I want ATLAS to remember my preferences so that recommendations are personalized.
+**User Story**: As a user, I want to speak with the pension advisor hands-free.
 
 **Acceptance Criteria**:
-- [x] User can mention budget, climate, purpose
-- [x] Preferences saved and displayed as chips
-- [ ] Preferences persist across sessions (requires Zep)
-- [ ] Agent tailors recommendations based on preferences
+- [ ] Hume EVI voice widget
+- [ ] Same knowledge as chat (Single Brain)
+- [ ] Clear, concise spoken responses
+- [ ] Low latency conversation
 
-### 7. Authentication
+### 4. Pension Calculators (Phase 3)
 
-**User Story**: As a user, I want to create an account so that my preferences and history are saved.
+**User Story**: As a user, I want to calculate pension values and scenarios.
+
+**Acceptance Criteria**:
+- [ ] State Pension age calculator
+- [ ] State Pension amount estimator
+- [ ] Drawdown withdrawal calculator
+- [ ] Tax relief calculator
+- [ ] Retirement income planner
+
+### 5. User Accounts (Phase 2)
+
+**User Story**: As a returning user, I want my preferences saved.
 
 **Acceptance Criteria**:
 - [x] Sign up / sign in via Neon Auth
-- [x] User avatar/menu component
-- [x] Protected account settings page
-- [ ] User ID passed to agent for personalization
+- [x] User dashboard page
+- [ ] Save pension details
+- [ ] Personalised recommendations
+- [ ] Conversation history
 
 ## Non-Goals (Explicit Exclusions)
 
-- **Booking/Reservations**: We don't book flights, accommodation, or visa appointments
-- **Immigration Lawyer Matching**: We provide info, not legal advice or referrals
-- **Property Listings**: No real estate search or rental integration
-- **Job Board**: No job listings (that's fractional.quest)
-- **Visa Applications**: We explain requirements, don't process applications
+- **Financial Advice**: We provide education, not regulated financial advice
+- **Pension Applications**: We explain, but don't process applications
+- **Provider Comparison Tables**: We're not a comparison site
+- **Investment Recommendations**: We don't recommend specific funds
+- **Tax Calculations**: We explain rules but don't calculate personal tax
 
 ## Technical Architecture
 
@@ -108,105 +106,125 @@ People considering international relocation face information overload. Visa requ
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│                         TARGET ARCHITECTURE                          │
+│                         ARCHITECTURE                                 │
 ├─────────────────────────────────────────────────────────────────────┤
 │                                                                      │
 │   ┌──────────────┐         ┌──────────────┐         ┌────────────┐ │
-│   │   VERCEL     │         │   VERCEL     │         │  RAILWAY   │ │
-│   │  (Next.js)   │         │  (Python)    │         │  (Python)  │ │
-│   │              │         │  [Phase 2]   │         │  [Phase 2] │ │
-│   │ Frontend     │ ──────► │  CLM for     │ ──────► │  Pydantic  │ │
-│   │ + CopilotKit │         │  Hume Voice  │         │  AI Agent  │ │
+│   │   VERCEL     │         │   RAILWAY    │         │   HUME     │ │
+│   │  (Next.js)   │         │   (Python)   │         │   (Voice)  │ │
+│   │              │ ──────► │   Phase 2    │ ──────► │   Phase 2  │ │
+│   │ Frontend     │         │  Pydantic    │         │   EVI      │ │
+│   │ + MDX       │         │  AI Agent    │         │            │ │
+│   │ + CopilotKit│         │              │         │            │ │
 │   │              │         │              │         │            │ │
 │   └──────────────┘         └──────────────┘         └────────────┘ │
-│          │                        ▲                       ▲        │
-│          │                        │                       │        │
-│          └────────────────────────┼───────────────────────┘        │
-│                                   │                                 │
-│                            ┌──────────────┐                        │
-│                            │   HUME AI    │                        │
-│                            │   (Voice)    │                        │
-│                            │  [Phase 2]   │                        │
-│                            └──────────────┘                        │
-│                                                                      │
-│   External Services:                                                │
-│   ├── Neon PostgreSQL (Database) ✓                                 │
-│   ├── Zep (Memory/Facts) [Phase 2]                                 │
-│   └── Google AI / Gemini (LLM) ✓                                   │
+│          │                                                          │
+│          │                                                          │
+│          ▼                                                          │
+│   ┌──────────────┐                                                  │
+│   │   NEON       │                                                  │
+│   │  PostgreSQL  │                                                  │
+│   │  + Auth      │                                                  │
+│   └──────────────┘                                                  │
 │                                                                      │
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
 ### Tech Stack
 
-| Component | Technology | Rationale |
-|-----------|------------|-----------|
-| Frontend | Next.js 15, React 19, TypeScript | SSR, App Router, modern React |
-| UI Framework | Tailwind CSS, Framer Motion | Rapid styling, smooth animations |
-| AI Chat | CopilotKit + Gemini adapter | Structured tool calls, generative UI |
-| Agent | Pydantic AI (Phase 2) | Type-safe tools, AG-UI protocol |
-| Database | Neon PostgreSQL | Serverless, branching, auth built-in |
-| Voice | Hume EVI (Phase 2) | Low-latency emotional voice AI |
-| Memory | Zep Cloud (Phase 2) | Conversation memory, user facts |
-| Auth | Neon Auth (@neondatabase/auth) | Integrated with database |
-
-### Key Integration Points
-
-1. **Frontend ↔ Agent**: Currently CopilotKit Next.js runtime; target is AG-UI protocol to Railway
-2. **Agent ↔ Database**: Direct PostgreSQL queries via asyncpg
-3. **Voice ↔ Agent**: CLM endpoint (OpenAI-compatible SSE streaming)
-4. **Memory ↔ Agent**: Zep Cloud for conversation history and user facts
+| Component | Technology | Status |
+|-----------|------------|--------|
+| Frontend | Next.js 15, React 19, TypeScript | ✓ Complete |
+| UI Framework | Tailwind CSS, Framer Motion | ✓ Complete |
+| Content | MDX with frontmatter | ✓ Complete |
+| AI Chat | CopilotKit + Gemini | ◐ Partial |
+| Agent | Pydantic AI | ○ Phase 2 |
+| Database | Neon PostgreSQL | ✓ Complete |
+| Voice | Hume EVI | ○ Phase 2 |
+| Auth | Neon Auth | ✓ Complete |
 
 ## Success Metrics
 
-| Metric | Target | How to Measure |
-|--------|--------|----------------|
-| Destinations covered | 20+ | Count in database |
-| Query response time | <3s | Measure API latency |
-| Voice response latency | <1s | Hume dashboard metrics |
-| User return rate | 30%+ | Auth + analytics |
+| Metric | Target | Current |
+|--------|--------|---------|
+| Content pages | 100+ | 74 |
+| Monthly organic traffic | 10,000+ | TBD |
+| Core Web Vitals | All green | TBD |
+| SEO keyword rankings | Top 10 for targets | TBD |
 
 ## Milestones
 
-### Phase 1: MVP (COMPLETE)
-- [x] Next.js 15 project setup
-- [x] CopilotKit integration with Gemini
-- [x] Neon database with 17 destinations
-- [x] MDX component library (ComparisonTable, CostChart, ProsCons, InfoCard)
-- [x] show_destination, save_preferences, generate_custom_view actions
+### Phase 1: Content Foundation ✓ COMPLETE
+
+- [x] Next.js 15 project with MDX
+- [x] 10 content clusters (74 pages)
+- [x] SEO infrastructure (sitemap, robots, meta)
+- [x] Legal pages (Privacy, Terms, Cookies, Disclaimer)
+- [x] Beta banner with disclaimer
+- [x] Cookie consent
 - [x] Neon Auth integration
 - [x] Deploy to Vercel
 
-### Phase 2: Voice & Agent (IN PROGRESS)
-- [ ] Deploy Pydantic AI agent to Railway
-- [ ] Connect frontend to Railway agent (replace built-in runtime)
-- [ ] Implement CLM endpoint for Hume voice
-- [ ] Enable Hume voice widget
-- [ ] Migrate tools from frontend to agent
-- [ ] Add Zep memory integration
+### Phase 2: AI & Voice (IN PROGRESS)
 
-### Phase 3: Scale & Polish
-- [ ] Add more destinations (target: 50)
-- [ ] Implement user fact extraction and storage
-- [ ] Add visa timeline visualizations
-- [ ] Performance optimization
-- [ ] Mobile-responsive voice UX
+- [ ] CopilotKit pension-advisor agent
+- [ ] Pydantic AI backend on Railway
+- [ ] Hume voice integration
+- [ ] User dashboard with saved data
+- [ ] Conversation memory (Zep)
+
+### Phase 3: Calculators & Tools
+
+- [ ] State Pension age calculator
+- [ ] State Pension amount estimator
+- [ ] Drawdown calculator
+- [ ] Tax relief calculator
+- [ ] Retirement income planner
+
+### Phase 4: Content Expansion
+
+- [ ] NHS Pension dedicated cluster (~8 pages)
+- [ ] Teachers Pension dedicated cluster (~6 pages)
+- [ ] Self-employed pensions (~5 pages)
+- [ ] Pension Contributions cluster (~6 pages)
+- [ ] Additional calculators
 
 ## Risks & Mitigations
 
 | Risk | Likelihood | Impact | Mitigation |
 |------|------------|--------|------------|
-| Railway cold starts | Medium | Medium | Keep-alive pings, optimize startup |
-| Hume SSE format issues | Medium | High | Thorough CLM testing, fallback to chat |
-| Destination data staleness | High | Medium | Regular data updates, source citations |
-| Voice misunderstanding queries | Medium | Medium | Robust entity extraction, confirmation UI |
+| Pension rule changes | High | Medium | Regular content reviews, date stamps |
+| AI giving wrong info | Medium | High | Strong disclaimers, source citations |
+| SEO competition | High | Medium | Long-tail keywords, comprehensive content |
+| Regulatory concerns | Low | High | Clear "not advice" disclaimers |
 
-## Open Questions
+## Content Guidelines
 
-- [x] Use CopilotKit built-in runtime or separate agent? → Target: separate agent
-- [ ] How to handle destinations not in database? → Fallback to web search?
-- [ ] Should voice and chat share exact same prompt? → Yes (Single Brain principle)
-- [ ] How to cite sources for visa/tax information? → TBD
+### Disclaimers Required
+
+Every page must include:
+1. "For informational purposes only"
+2. Link to GOV.UK for official information
+3. Recommendation to consult financial adviser
+4. Note that rules may change
+
+### Authoritative Sources
+
+Always link to:
+- GOV.UK (official pension information)
+- HMRC (tax-related topics)
+- The Pensions Regulator
+- NHS Pensions (for NHS content)
+- Teachers' Pensions (for teachers content)
+- MoneyHelper (pension guidance)
+
+### Tone
+
+- Clear, jargon-free language
+- UK-specific (use £, UK terms)
+- Helpful but not prescriptive
+- Acknowledge complexity where it exists
+- Never give personal financial advice
 
 ---
 
@@ -214,5 +232,7 @@ People considering international relocation face information overload. Visa requ
 
 | Date | Change | Author |
 |------|--------|--------|
-| 2026-01-13 | Initial project setup, Phase 1 complete | Dan |
-| 2026-01-15 | PRD filled out from codebase analysis | Claude |
+| 2026-01-17 | Completed 5 more clusters (32 pages), updated PRD | Claude |
+| 2026-01-16 | Created first 5 clusters (42 pages), legal pages, UI components | Claude |
+| 2026-01-15 | Initial project setup, pivoted to pension education | Dan |
+| 2026-01-15 | PRD created | Dan |

@@ -1,23 +1,23 @@
-# Puppy Insurance Quest
+# Pension Quest
 
 > **Cole Medin Methodology**: PRD-first, modular rules, command-ify, context reset, system evolution.
 
 ## Quick Start
 
 ```bash
-# Frontend (port 4000 to avoid conflicts)
-npm run dev -- -p 4000              # -> localhost:4000
+# Frontend (Next.js)
+npm run dev                          # -> localhost:3000
 
-# Agent (Pydantic AI on Railway)
+# Agent (Pydantic AI on Railway) - Phase 2
 cd agent && source .venv/bin/activate
 uvicorn src.agent:app --reload --port 8000
 ```
 
-## Current Architecture
+## Project Overview
 
-Single-page conversational AI puppy insurance advisor. CopilotKit Next.js runtime with Gemini adapter. Dog breed and policy data from Neon PostgreSQL.
+Pension Quest is a UK pension education platform providing comprehensive guides, calculators, and AI-powered assistance for understanding pensions, retirement planning, and related financial topics.
 
-**Pattern**: CopilotKit runtime inside Next.js API route + Pydantic AI agent on Railway for voice.
+**Pattern**: Next.js MDX content site + CopilotKit AI assistant + Hume voice (Phase 2)
 
 ---
 
@@ -26,76 +26,63 @@ Single-page conversational AI puppy insurance advisor. CopilotKit Next.js runtim
 | Purpose | Location |
 |---------|----------|
 | Main page | `src/app/page.tsx` |
+| Layout | `src/app/layout.tsx` |
 | CopilotKit provider | `src/components/providers.tsx` |
 | CopilotKit runtime | `src/app/api/copilotkit/route.ts` |
-| Breeds API | `src/app/api/breeds/route.ts` |
-| Quote API | `src/app/api/quote/route.ts` |
-| Database queries (frontend) | `src/lib/puppy-db.ts` |
+| MDX content | `src/content/{cluster}/*.mdx` |
+| MDX utilities | `src/lib/mdx.ts` |
+| Topic cluster config | `src/lib/topic-clusters.ts` |
+| Sitemap | `src/app/sitemap.ts` |
+| Robots | `src/app/robots.ts` |
+| Beta banner | `src/components/BetaBanner.tsx` |
+| Cookie consent | `src/components/CookieConsent.tsx` |
 | Hume voice widget | `src/components/HumeWidget.tsx` |
-| Hume token API | `src/app/api/hume-token/route.ts` |
 | Neon Auth client | `src/lib/auth/client.ts` |
-| Neon Auth server | `src/lib/auth/server.ts` |
-| **Pydantic AI Agent (Railway)** | |
-| Agent entry point | `agent/src/agent.py` |
-| Database queries (agent) | `agent/src/database.py` |
-| Railway config | `agent/railway.toml` |
-| CLM endpoint (for Hume) | `{RAILWAY_URL}/chat/completions` |
 
 ---
 
-## CopilotKit Actions (useCopilotAction)
+## Content Clusters (MDX)
 
-| Action | Purpose |
-|--------|---------|
-| `show_breed_info` | Display breed information when user mentions a breed |
-| `confirm_dog_details` | Confirm and save dog's name, breed, age |
-| `generate_quote` | Generate insurance quote for selected plan |
-| `show_plans` | Display all available insurance plans |
+### Completed Clusters
 
----
+| Cluster | Pages | Pillar Page |
+|---------|-------|-------------|
+| State Pension | 10 | `state-pension/index.mdx` |
+| Workplace Pension | 11 | `workplace-pension/index.mdx` |
+| SIPP | 9 | `sipp/index.mdx` |
+| Pension Drawdown | 7 | `pension-drawdown/index.mdx` |
+| Pension Annuity | 5 | `pension-annuity/index.mdx` |
+| Retirement Age | 6 | `retirement-age/index.mdx` |
+| Pension Inheritance | 7 | `pension-inheritance/index.mdx` |
+| Final Salary/DB | 6 | `final-salary/index.mdx` |
+| Pension Transfers | 7 | `pension-transfers/index.mdx` |
+| Pension Tax Relief | 6 | `pension-tax-relief/index.mdx` |
+| **Total** | **74 pages** | |
 
-## Database (Neon)
+### Outstanding Clusters
 
-| Table | Purpose |
-|-------|---------|
-| dog_breeds | 18 breeds with risk factors, health issues, premium multipliers |
-| user_dogs | User's registered dogs |
-| insurance_policies | Active policies |
-| policy_quotes | Quote history |
-| claims | Insurance claims |
-| user_profiles | User account data |
-
----
-
-## Neon Auth
-
-Authentication powered by Neon Auth (`@neondatabase/auth`).
-
-**Routes**:
-- `/auth/sign-in` - Sign in page
-- `/auth/sign-up` - Sign up page
-- `/account/settings` - Account settings (protected)
+| Cluster | Estimated Pages | Priority |
+|---------|----------------|----------|
+| Pension Contributions | ~6 | Medium |
+| Pension Pot | ~8 | Medium |
+| NHS Pension (dedicated) | ~8 | High |
+| Teachers Pension (dedicated) | ~6 | High |
+| Self-Employed Pensions | ~5 | Medium |
 
 ---
 
-## Insurance Plans
+## MDX Components
 
-| Plan | Monthly | Annual Limit | Deductible | Key Features |
-|------|---------|--------------|------------|--------------|
-| Basic | $15 | $5,000 | $250 | Accident only, emergency care |
-| Standard | $35 | $10,000 | $200 | + Illness, prescriptions |
-| Premium | $55 | $20,000 | $100 | + Routine care, dental, hereditary |
-| Comprehensive | $85 | $50,000 | $0 | Everything, alternative therapies |
-
----
-
-## Breed Risk Categories
-
-| Category | Premium Multiplier | Breeds |
-|----------|-------------------|--------|
-| Low | 0.75-0.9x | Chihuahua, Beagle, Poodle, Yorkshire Terrier, Mixed Breed |
-| Medium | 1.0-1.2x | Labrador, German Shepherd, Golden Retriever, Boxer |
-| High | 1.35-1.6x | French Bulldog, Bulldog, Cavalier King Charles, Great Dane |
+| Component | Purpose | Usage |
+|-----------|---------|-------|
+| `KeyTakeaways` | Bullet list at top of page | `<KeyTakeaways items={[...]} />` |
+| `DataTable` | Structured data tables | `<DataTable title="..." columns={[...]} data={[...]} />` |
+| `StatGrid` / `StatCard` | Key statistics display | `<StatGrid columns={2}>...</StatGrid>` |
+| `Callout` | Info/warning/tip boxes | `<Callout type="info" title="...">...</Callout>` |
+| `FAQAccordion` | FAQ with schema.org markup | `<FAQAccordion items={[...]} />` |
+| `ExternalLinkCard` | Links to GOV.UK etc | `<ExternalLinkCard href="..." source="GOV.UK" />` |
+| `RelatedArticles` | Internal linking | `<RelatedArticles cluster="..." />` |
+| `BarChart` | Visual data display | `<BarChart data={[...]} />` |
 
 ---
 
@@ -104,36 +91,46 @@ Authentication powered by Neon Auth (`@neondatabase/auth`).
 | Layer | Technology |
 |-------|------------|
 | Frontend | Next.js 15, React 19, TypeScript, Tailwind |
-| AI Chat | CopilotKit (Next.js runtime + Gemini adapter) |
-| Voice | Hume EVI (@humeai/voice-react) |
-| Agent | Pydantic AI (FastAPI on Railway) |
-| Database | Neon PostgreSQL (@neondatabase/serverless) |
+| Content | MDX with frontmatter (gray-matter, next-mdx-remote) |
+| AI Chat | CopilotKit (planned - currently simplified) |
+| Voice | Hume EVI (Phase 2) |
+| Database | Neon PostgreSQL |
 | Auth | Neon Auth (@neondatabase/auth) |
+| Hosting | Vercel |
+| Repo | github.com/Londondannyboy/pension.quest |
+
+---
+
+## Legal Pages
+
+| Page | Route | Status |
+|------|-------|--------|
+| Privacy Policy | `/privacy` | ✓ Created |
+| Terms of Service | `/terms` | ✓ Created |
+| Cookie Policy | `/cookies` | ✓ Created |
+| Disclaimer | `/disclaimer` | ✓ Created |
 
 ---
 
 ## Environment Variables
 
 ```bash
-# Database (puppyinsurance.quest)
-DATABASE_URL=postgresql://neondb_owner:...@ep-xxx.neon.tech/neondb
+# Database
+DATABASE_URL=postgresql://...@neon.tech/neondb
 
-# CopilotKit (Gemini)
+# CopilotKit (optional - Gemini)
 GOOGLE_API_KEY=...
 
-# Hume EVI
+# Hume EVI (Phase 2)
 HUME_API_KEY=...
 HUME_SECRET_KEY=...
 NEXT_PUBLIC_HUME_CONFIG_ID=...
 
-# Agent URL (Railway - set after deployment)
-NEXT_PUBLIC_AGENT_URL=https://your-agent.up.railway.app
+# Unsplash (images)
+NEXT_PUBLIC_UNSPLASH_ACCESS_KEY=...
 
 # Neon Auth
-NEON_AUTH_BASE_URL=https://ep-xxx.neonauth.region.aws.neon.tech/neondb/auth
-
-# Zep Memory (optional)
-ZEP_API_KEY=...
+NEON_AUTH_BASE_URL=...
 ```
 
 ---
@@ -149,47 +146,87 @@ ZEP_API_KEY=...
 
 ---
 
-## Railway Deployment (Agent)
+## Completed Tasks
 
-1. Create new Railway project
-2. Connect GitHub repo: `Londondannyboy/puppyinsurance.quest`
-3. Set root directory to `agent/`
-4. Add environment variables:
-   - `DATABASE_URL` (from Neon)
-   - `GOOGLE_API_KEY` (for Gemini)
-   - `ZEP_API_KEY` (optional)
-5. Deploy will auto-detect `railway.toml`
-6. Note the URL (e.g., `https://puppyinsurance-agent-xxx.up.railway.app`)
-7. Update `NEXT_PUBLIC_AGENT_URL` in frontend `.env.local`
+### Phase 1: Content Foundation ✓
+- [x] Next.js 15 project setup with MDX
+- [x] Topic cluster architecture
+- [x] 10 content clusters (74 pages)
+- [x] Sitemap and robots.txt
+- [x] Legal pages (Privacy, Terms, Cookies, Disclaimer)
+- [x] Beta banner with "not financial advice" warning
+- [x] Cookie consent component
+- [x] Neon Auth integration
+- [x] Deploy to Vercel
 
-### CLM Endpoint for Hume
+### Phase 2: AI & Voice (Outstanding)
+- [ ] CopilotKit "pension-advisor" agent
+- [ ] Pydantic AI backend on Railway
+- [ ] Hume voice integration
+- [ ] Calculator components (interactive)
+- [ ] User dashboard with saved preferences
 
-After Railway deployment, your Hume EVI CLM endpoint is:
+### Phase 3: Content Expansion (Outstanding)
+- [ ] NHS Pension dedicated cluster
+- [ ] Teachers Pension dedicated cluster
+- [ ] Self-employed pension content
+- [ ] Pension calculators (State Pension, drawdown)
+- [ ] Interactive tools
+
+---
+
+## SEO Strategy
+
+Each MDX page includes frontmatter for SEO:
+
+```yaml
+---
+title: "Page Title for SEO"
+description: "Meta description for search results"
+keywords: [array, of, keywords]
+targetKeyword: "main keyword"
+volume: 12000        # Monthly search volume
+difficulty: 20       # Keyword difficulty (0-100)
+cpc: 1.50           # Cost per click
+cluster: "cluster-name"
+pillar: true/false
+---
 ```
-https://your-railway-url.up.railway.app/chat/completions
-```
-
-Configure this in Hume Dashboard -> EVI Config -> Custom Language Model.
 
 ---
 
 ## Session Log
 
+### Jan 17, 2026
+- Created Retirement Age cluster (6 pages)
+- Created Pension Inheritance cluster (7 pages)
+- Created Final Salary/DB cluster (6 pages)
+- Created Pension Transfers cluster (7 pages)
+- Created Pension Tax Relief cluster (6 pages)
+- Total: 32 new pages, 74 total content pages
+- All pushed to GitHub
+
 ### Jan 16, 2026
-- Initial project setup from relocation.quest template
-- Created puppy insurance database schema (18 breeds)
-- Built frontend with CopilotKit sidebar
-- Created Pydantic AI agent "Buddy"
-- Implemented breed lookup, quote generation, plan comparison
-- Voice integration via Hume EVI
-- Ready for Railway deployment
+- Created State Pension cluster (10 pages)
+- Created Workplace Pension cluster (11 pages)
+- Created SIPP cluster (9 pages)
+- Created Pension Drawdown cluster (7 pages)
+- Created Pension Annuity cluster (5 pages)
+- Legal pages (Privacy, Terms, Cookies, Disclaimer)
+- BetaBanner and CookieConsent components
+- Sitemap and robots.txt
+
+### Jan 15, 2026
+- Project setup, pivoted from wine project
+- Next.js 15 + MDX architecture
+- Neon Auth integration
+- Initial deployment to Vercel
 
 ---
 
-## Test Commands
+## Important Notes
 
-Try these in the chat:
-- "I have a Labrador" -> shows breed info
-- "My dog Max is a 3 year old Golden Retriever" -> saves dog details
-- "Show me insurance plans" -> displays plan comparison
-- "Get me a quote for the premium plan" -> generates personalized quote
+- **Not financial advice**: All content includes disclaimer directing users to GOV.UK, HMRC, and professional advisers
+- **UK-focused**: Content is specifically for UK pensions (State Pension, workplace, SIPP, etc.)
+- **Authoritative sources**: Always link to GOV.UK and official sources
+- **Mobile-first**: Responsive design, especially for calculators
