@@ -1,24 +1,50 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { NeonAuthUIProvider, UserButton } from "@/lib/auth/client";
+import { Inter } from "next/font/google";
+import { NeonAuthUIProvider } from "@/lib/auth/client";
 import { authClient } from "@/lib/auth/client";
 import { Providers } from "@/components/providers";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 import "./globals.css";
 import "@copilotkit/react-ui/styles.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
-  title: "Pension Quest - UK Pension Advisor",
-  description: "Your friendly AI guide to UK pensions. Understand, compare, and plan your retirement with Penelope.",
+  metadataBase: new URL('https://pension.quest'),
+  title: {
+    default: "Pension Quest - UK Pension Guides & Calculators",
+    template: "%s | Pension Quest",
+  },
+  description: "Your complete guide to UK pensions. Free pension calculators, expert guides on State Pension, NHS Pension, SIPP, workplace pensions, and retirement planning.",
+  keywords: ["UK pension", "state pension", "pension calculator", "retirement planning", "NHS pension", "teachers pension", "SIPP", "pension drawdown"],
+  authors: [{ name: "Pension Quest" }],
+  openGraph: {
+    type: "website",
+    locale: "en_GB",
+    siteName: "Pension Quest",
+    title: "Pension Quest - UK Pension Guides & Calculators",
+    description: "Your complete guide to UK pensions. Free calculators and expert guides.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Pension Quest - UK Pension Guides & Calculators",
+    description: "Your complete guide to UK pensions. Free calculators and expert guides.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({
@@ -27,9 +53,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
+    <html lang="en-GB" className="dark" suppressHydrationWarning>
       <head>
-        {/* Favicon - Q for Quest branding */}
+        {/* Favicon */}
         <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="shortcut icon" href="/favicon.ico" />
@@ -38,7 +64,7 @@ export default function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-950 text-white`}
+        className={`${inter.variable} font-sans antialiased bg-slate-950 text-white min-h-screen flex flex-col`}
       >
         <NeonAuthUIProvider
           authClient={authClient as any}
@@ -46,29 +72,13 @@ export default function RootLayout({
           emailOTP
           social={{ providers: ['google'] }}
         >
-          <header className="fixed top-0 left-0 right-0 h-14 bg-slate-900/95 backdrop-blur-sm z-[9999] flex items-center justify-between px-6 border-b border-slate-800">
-            {/* Logo / Brand */}
-            <a href="/" className="flex items-center gap-2 text-white font-semibold text-lg">
-              <span className="text-2xl">💰</span>
-              <span>Pension Quest</span>
-            </a>
-
-            {/* Navigation Links */}
-            <nav className="flex items-center gap-6">
-              <a href="/" className="text-white/90 hover:text-white text-sm font-medium transition-colors">
-                Explore
-              </a>
-              <a href="/dashboard" className="text-white/90 hover:text-white text-sm font-medium transition-colors">
-                My Pensions
-              </a>
-              <UserButton size="icon" />
-            </nav>
-          </header>
-          <div className="pt-14">
-            <Providers>
+          <Providers>
+            <Navbar />
+            <main className="flex-grow">
               {children}
-            </Providers>
-          </div>
+            </main>
+            <Footer />
+          </Providers>
         </NeonAuthUIProvider>
       </body>
     </html>
