@@ -1,0 +1,177 @@
+---
+title: "UK Pension Age: When Can You Access Your Pension?"
+description: "Complete guide to UK pension ages. Understand State Pension age, private pension access age, and when you can retire."
+keywords:
+  - pension age
+  - state pension age
+  - retirement age uk
+  - when can i retire
+  - pension access age
+targetKeyword: "state pension age"
+volume: 90500
+difficulty: 20
+cpc: 1.65
+cluster: "retirement-age"
+pillar: true
+author: "Pension Quest"
+publishedDate: "2025-01-17"
+modifiedDate: "2025-01-17"
+readingTime: 10
+unsplashQuery: "retirement age celebration"
+---
+
+<KeyTakeaways items={[
+  "State Pension age is currently 66, rising to 67 by 2028",
+  "Private pensions can be accessed from age 55 (57 from 2028)",
+  "Your State Pension age depends on your date of birth",
+  "You can choose when to retire - there's no mandatory retirement age",
+  "Early retirement means accessing private pensions; State Pension has fixed age"
+]} />
+
+Understanding **pension ages** is crucial for retirement planning. Different pensions have different access ages.
+
+## Current Pension Ages
+
+<StatGrid columns={2}>
+  <StatCard
+    label="State Pension Age"
+    value="66"
+    change="rising to 67 by 2028"
+    icon="🏛️"
+    color="blue"
+  />
+  <StatCard
+    label="Private Pension Age"
+    value="55"
+    change="rising to 57 in 2028"
+    icon="💰"
+    color="emerald"
+  />
+</StatGrid>
+
+## State Pension Age
+
+Your State Pension age depends on when you were born:
+
+<DataTable
+  title="State Pension Age by Birth Date"
+  columns={[
+    { key: "born", header: "Date of Birth" },
+    { key: "spa", header: "State Pension Age", highlight: true },
+    { key: "when", header: "You Can Claim From" }
+  ]}
+  data={[
+    { born: "Before 6 April 1960", spa: "66", when: "Already reached" },
+    { born: "6 April 1960 - 5 March 1961", spa: "66-67", when: "Phased increase" },
+    { born: "6 March 1961 onwards", spa: "67", when: "From 2028" },
+    { born: "After 1977 (proposed)", spa: "68", when: "TBC - under review" }
+  ]}
+/>
+
+<Callout type="info" title="Check Your Exact Date">
+Use the official GOV.UK State Pension age calculator to find your exact date.
+</Callout>
+
+## Private Pension Access Age
+
+<DataTable
+  title="Private Pension Access Ages"
+  columns={[
+    { key: "type", header: "Pension Type" },
+    { key: "current", header: "Current Age", highlight: true },
+    { key: "from2028", header: "From April 2028" }
+  ]}
+  data={[
+    { type: "Workplace DC pension", current: "55", from2028: "57" },
+    { type: "SIPP", current: "55", from2028: "57" },
+    { type: "Personal pension", current: "55", from2028: "57" },
+    { type: "Some older schemes", current: "50-55", from2028: "Protected" }
+  ]}
+/>
+
+## The Gap Between Private and State Pension
+
+<Callout type="example" title="Planning for the Gap">
+**Tom**, born 1965, plans to retire at 57:
+
+- **Private pension access**: Age 57 (2028 rules)
+- **State Pension age**: 67
+- **Gap to bridge**: 10 years
+
+Tom needs his private pension to cover 10 years before State Pension kicks in.
+</Callout>
+
+## Can I Retire Early?
+
+<DataTable
+  title="Early Retirement Options"
+  columns={[
+    { key: "option", header: "Option" },
+    { key: "earliest", header: "Earliest Age", highlight: true },
+    { key: "impact", header: "Impact" }
+  ]}
+  data={[
+    { option: "Access private pension", earliest: "55 (57 from 2028)", impact: "Pot must last longer" },
+    { option: "State Pension", earliest: "State Pension age only", impact: "Cannot access early" },
+    { option: "DB pension early", earliest: "Scheme rules", impact: "Reduced pension" }
+  ]}
+/>
+
+## State Pension Age Changes
+
+<BarChart
+  title="State Pension Age Over Time"
+  subtitle="How it's changing"
+  data={[
+    { label: "Pre-2018", value: 65, color: "bg-slate-500" },
+    { label: "2018-2020", value: 65.5, color: "bg-blue-500" },
+    { label: "2020-2028", value: 66, color: "bg-emerald-500" },
+    { label: "2028-2046", value: 67, color: "bg-violet-500" },
+    { label: "After 2046?", value: 68, color: "bg-amber-500" }
+  ]}
+  valuePrefix=""
+/>
+
+## FAQs
+
+<FAQAccordion
+  title="Common Questions"
+  items={[
+    {
+      question: "What is the State Pension age in 2025?",
+      answer: "The State Pension age is 66 for both men and women in 2025. It will start rising to 67 from 2026, reaching 67 for everyone by 2028."
+    },
+    {
+      question: "Can I take my State Pension early?",
+      answer: "No, you cannot access State Pension before your State Pension age. However, you can defer it for higher payments later."
+    },
+    {
+      question: "When will the pension age rise to 68?",
+      answer: "The increase to 68 is currently scheduled for 2044-2046, but this is under review and may change. Check GOV.UK for updates."
+    },
+    {
+      question: "Is there a mandatory retirement age?",
+      answer: "No, there's no mandatory retirement age in the UK. You can continue working as long as you want. 'Retirement age' really means when you can access pensions."
+    },
+    {
+      question: "What if I was born before 1960?",
+      answer: "Your State Pension age is 66 if you're a man, or depends on your exact birth date if you're a woman (due to the equalisation from 60 to 65, then to 66)."
+    }
+  ]}
+/>
+
+<ExternalLinkCard
+  href="https://www.gov.uk/state-pension-age"
+  title="Check Your State Pension Age"
+  source="GOV.UK"
+  description="Official State Pension age calculator"
+  trusted={true}
+/>
+
+## Related Guides
+
+<RelatedArticles
+  cluster="retirement-age"
+  currentSlug="index"
+  limit={4}
+/>

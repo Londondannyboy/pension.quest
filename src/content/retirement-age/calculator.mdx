@@ -1,0 +1,130 @@
+---
+title: "State Pension Age Calculator"
+description: "Find out your State Pension age based on your date of birth. Calculate when you can claim your UK State Pension."
+keywords:
+  - state pension age calculator
+  - pension age calculator
+  - when can i get state pension
+  - state pension age check
+  - retirement age calculator
+targetKeyword: "state pension age calculator"
+volume: 9900
+difficulty: 15
+cpc: 1.45
+cluster: "retirement-age"
+pillar: false
+author: "Pension Quest"
+publishedDate: "2025-01-17"
+modifiedDate: "2025-01-17"
+readingTime: 5
+unsplashQuery: "calculator retirement date"
+---
+
+<KeyTakeaways items={[
+  "State Pension age depends on your date of birth",
+  "Currently 66, rising to 67 between 2026-2028",
+  "Use the official GOV.UK calculator for your exact date",
+  "Private pensions have a different (earlier) access age",
+  "You can defer State Pension for higher payments"
+]} />
+
+Find your **State Pension age** based on when you were born.
+
+## Quick Reference
+
+<DataTable
+  title="State Pension Age by Birth Year"
+  columns={[
+    { key: "born", header: "Born" },
+    { key: "spa", header: "State Pension Age", highlight: true },
+    { key: "reach", header: "Reach SPA In" }
+  ]}
+  data={[
+    { born: "Before 1954", spa: "66", reach: "Already reached" },
+    { born: "1954-1959", spa: "66", reach: "Already reached" },
+    { born: "1960", spa: "66-67", reach: "2026-2027" },
+    { born: "1961-1969", spa: "67", reach: "2028-2036" },
+    { born: "1970-1979", spa: "67 (68 proposed)", reach: "2037-2046" },
+    { born: "1980+", spa: "68 (proposed)", reach: "2048+" }
+  ]}
+  caption="Future ages are subject to government review."
+/>
+
+## Detailed Transition Schedule
+
+<DataTable
+  title="The 66 to 67 Transition"
+  columns={[
+    { key: "dob_from", header: "Born From" },
+    { key: "dob_to", header: "Born To" },
+    { key: "spa", header: "State Pension Age", highlight: true }
+  ]}
+  data={[
+    { dob_from: "6 Apr 1960", dob_to: "5 May 1960", spa: "66 years, 1 month" },
+    { dob_from: "6 May 1960", dob_to: "5 Jun 1960", spa: "66 years, 2 months" },
+    { dob_from: "6 Jun 1960", dob_to: "5 Jul 1960", spa: "66 years, 3 months" },
+    { dob_from: "6 Jul 1960", dob_to: "5 Aug 1960", spa: "66 years, 4 months" },
+    { dob_from: "6 Aug 1960", dob_to: "5 Sep 1960", spa: "66 years, 5 months" },
+    { dob_from: "6 Sep 1960", dob_to: "5 Oct 1960", spa: "66 years, 6 months" },
+    { dob_from: "6 Oct 1960", dob_to: "5 Nov 1960", spa: "66 years, 7 months" },
+    { dob_from: "6 Nov 1960", dob_to: "5 Dec 1960", spa: "66 years, 8 months" },
+    { dob_from: "6 Dec 1960", dob_to: "5 Jan 1961", spa: "66 years, 9 months" },
+    { dob_from: "6 Jan 1961", dob_to: "5 Feb 1961", spa: "66 years, 10 months" },
+    { dob_from: "6 Feb 1961", dob_to: "5 Mar 1961", spa: "66 years, 11 months" },
+    { dob_from: "6 Mar 1961 onwards", dob_to: "-", spa: "67 years" }
+  ]}
+/>
+
+## Private Pension Ages
+
+<DataTable
+  title="When Can You Access Private Pensions?"
+  columns={[
+    { key: "when", header: "Time Period" },
+    { key: "age", header: "Minimum Access Age", highlight: true }
+  ]}
+  data={[
+    { when: "Until April 2028", age: "55" },
+    { when: "From April 2028", age: "57" }
+  ]}
+/>
+
+<Callout type="tip" title="Plan for Both">
+You can access private pensions earlier than State Pension. Plan your retirement income to bridge the gap.
+</Callout>
+
+## FAQs
+
+<FAQAccordion
+  title="Common Questions"
+  items={[
+    {
+      question: "How do I find my exact State Pension age?",
+      answer: "Use the official GOV.UK State Pension age calculator. Enter your date of birth and it will give you the exact date you can claim."
+    },
+    {
+      question: "Will my State Pension age change?",
+      answer: "The age to 67 is set in law. The further increase to 68 is proposed but not finalised. Future governments could change it."
+    },
+    {
+      question: "Is State Pension age the same for men and women?",
+      answer: "Yes, since 2018 State Pension age has been equal for men and women. Previously, women could claim at 60 while men claimed at 65."
+    }
+  ]}
+/>
+
+<ExternalLinkCard
+  href="https://www.gov.uk/state-pension-age"
+  title="Official State Pension Age Calculator"
+  source="GOV.UK"
+  description="Check your exact State Pension age"
+  trusted={true}
+/>
+
+## Related Guides
+
+<RelatedArticles
+  cluster="retirement-age"
+  currentSlug="calculator"
+  limit={4}
+/>
