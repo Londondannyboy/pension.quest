@@ -1,0 +1,183 @@
+---
+title: "Workplace Pension Calculator 2025"
+description: "Calculate your workplace pension contributions and project your retirement pot. See how employer matching and tax relief boost your savings."
+keywords:
+  - workplace pension calculator
+  - pension calculator uk
+  - employer pension calculator
+  - auto enrolment calculator
+  - pension contribution calculator
+targetKeyword: "workplace pension calculator"
+volume: 1000
+difficulty: 18
+cpc: 1.55
+cluster: "workplace-pension"
+pillar: false
+author: "Pension Quest"
+publishedDate: "2025-01-17"
+modifiedDate: "2025-01-17"
+readingTime: 6
+unsplashQuery: "calculator financial planning"
+---
+
+<KeyTakeaways items={[
+  "Calculate contributions on qualifying earnings (£6,240 to £50,270)",
+  "See the impact of employer matching on your pot",
+  "Understand how tax relief boosts your contributions",
+  "Project your pot value at retirement",
+  "Compare different contribution levels"
+]} />
+
+Use this guide to **calculate your workplace pension** contributions and project your retirement savings.
+
+## Contribution Calculator
+
+### Quick Calculation Table
+
+<DataTable
+  title="Monthly Contributions by Salary"
+  columns={[
+    { key: "salary", header: "Annual Salary" },
+    { key: "qualifying", header: "Qualifying Earnings" },
+    { key: "you", header: "You Pay (5%)", highlight: true },
+    { key: "employer", header: "Employer (3%)" },
+    { key: "total", header: "Total/Year" }
+  ]}
+  data={[
+    { salary: "£20,000", qualifying: "£13,760", you: "£688", employer: "£413", total: "£1,101" },
+    { salary: "£25,000", qualifying: "£18,760", you: "£938", employer: "£563", total: "£1,501" },
+    { salary: "£30,000", qualifying: "£23,760", you: "£1,188", employer: "£713", total: "£1,901" },
+    { salary: "£35,000", qualifying: "£28,760", you: "£1,438", employer: "£863", total: "£2,301" },
+    { salary: "£40,000", qualifying: "£33,760", you: "£1,688", employer: "£1,013", total: "£2,701" },
+    { salary: "£50,000", qualifying: "£43,760", you: "£2,188", employer: "£1,313", total: "£3,501" },
+    { salary: "£60,000+", qualifying: "£44,030 (capped)", you: "£2,202", employer: "£1,321", total: "£3,523" }
+  ]}
+  caption="Based on 5% employee + 3% employer minimum contributions."
+/>
+
+## Pot Projections
+
+<DataTable
+  title="Pension Pot at Age 65 (5% growth assumed)"
+  columns={[
+    { key: "start", header: "Start Age" },
+    { key: "salary", header: "Salary" },
+    { key: "min", header: "8% Contributions", highlight: true },
+    { key: "matched", header: "10% (with match)" },
+    { key: "high", header: "15% (generous)" }
+  ]}
+  data={[
+    { start: "25", salary: "£30,000", min: "£201,000", matched: "£251,000", high: "£377,000" },
+    { start: "30", salary: "£30,000", min: "£151,000", matched: "£189,000", high: "£284,000" },
+    { start: "35", salary: "£30,000", min: "£111,000", matched: "£139,000", high: "£209,000" },
+    { start: "40", salary: "£30,000", min: "£79,000", matched: "£99,000", high: "£149,000" },
+    { start: "45", salary: "£30,000", min: "£54,000", matched: "£68,000", high: "£102,000" }
+  ]}
+  caption="Assumes constant salary. Real results will vary with salary growth and investment returns."
+/>
+
+## The Power of Employer Matching
+
+<BarChart
+  title="Impact of Employer Matching (£35k salary, age 25 to 65)"
+  subtitle="5% employee contribution + varying employer match"
+  data={[
+    { label: "3% employer (minimum)", value: 245000, color: "bg-blue-500" },
+    { label: "5% employer (1:1 match)", value: 306000, color: "bg-emerald-500" },
+    { label: "7% employer", value: 368000, color: "bg-violet-500" },
+    { label: "10% employer", value: 459000, color: "bg-amber-500" }
+  ]}
+  valuePrefix="£"
+/>
+
+<Callout type="tip" title="Free Money!">
+Every 1% extra your employer contributes could add £30,000+ to your pot over 40 years. Always contribute enough to get the full employer match.
+</Callout>
+
+## Tax Relief Boost
+
+<DataTable
+  title="What £100 Contribution Actually Costs You"
+  columns={[
+    { key: "rate", header: "Tax Rate" },
+    { key: "in", header: "In Your Pension", highlight: true },
+    { key: "cost", header: "Real Cost to You" },
+    { key: "boost", header: "Effective Boost" }
+  ]}
+  data={[
+    { rate: "Basic (20%)", in: "£125", cost: "£100", boost: "25%" },
+    { rate: "Higher (40%)", in: "£125", cost: "£75*", boost: "67%" },
+    { rate: "Additional (45%)", in: "£125", cost: "£69*", boost: "81%" }
+  ]}
+  caption="*After claiming extra relief through self-assessment."
+/>
+
+<Callout type="example" title="Your Real Investment">
+**Emma** pays higher rate tax and contributes £200/month:
+
+- Goes into pension: £250 (with 20% tax relief)
+- Extra relief claimed: £50 (another 20%)
+- **Real cost to Emma**: £150
+- **In her pension**: £250
+- **Plus employer 3%**: £90
+
+For £150 out of Emma's pocket, **£340** goes into her pension each month.
+</Callout>
+
+## Starting Later Calculator
+
+<DataTable
+  title="Catching Up If You Start Late"
+  columns={[
+    { key: "start", header: "Start Age" },
+    { key: "standard", header: "8% Total", highlight: true },
+    { key: "catchup", header: "To Match 25-Starter" }
+  ]}
+  data={[
+    { start: "30", standard: "£151,000 at 65", catchup: "Need 11% total" },
+    { start: "35", standard: "£111,000 at 65", catchup: "Need 15% total" },
+    { start: "40", standard: "£79,000 at 65", catchup: "Need 21% total" },
+    { start: "45", standard: "£54,000 at 65", catchup: "Need 31% total" }
+  ]}
+  caption="Based on £30,000 salary matching someone starting at 25 with 8% contributions."
+/>
+
+## FAQs
+
+<FAQAccordion
+  title="Common Questions"
+  items={[
+    {
+      question: "How are workplace pension contributions calculated?",
+      answer: "Contributions are based on 'qualifying earnings' - your earnings between £6,240 and £50,270. The minimum is 8% total (5% from you, 3% from employer) of this amount."
+    },
+    {
+      question: "Why is my contribution different from my colleague's?",
+      answer: "Contributions depend on salary and whether you've increased above the minimum. Some employers also offer different matching levels to different groups."
+    },
+    {
+      question: "What if my salary changes?",
+      answer: "Your contributions will automatically adjust with your salary changes. Higher salary = higher qualifying earnings = higher contributions."
+    },
+    {
+      question: "How accurate are pension calculators?",
+      answer: "They provide estimates based on assumptions about growth rates, inflation, and charges. Actual results will vary. Use them as a guide, not a guarantee."
+    }
+  ]}
+/>
+
+<ExternalLinkCard
+  href="https://www.moneyhelper.org.uk/en/pensions-and-retirement/pension-wise/pension-calculator"
+  title="MoneyHelper Pension Calculator"
+  source="MoneyHelper"
+  description="Official free pension calculator"
+  trusted={true}
+/>
+
+## Related Guides
+
+<RelatedArticles
+  cluster="workplace-pension"
+  currentSlug="calculator"
+  limit={4}
+/>
