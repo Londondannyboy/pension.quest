@@ -5,6 +5,8 @@ import { authClient } from "@/lib/auth/client";
 import { Providers } from "@/components/providers";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { BetaBanner } from "@/components/BetaBanner";
+import { CookieConsent } from "@/components/CookieConsent";
 import "./globals.css";
 import "@copilotkit/react-ui/styles.css";
 
@@ -73,11 +75,13 @@ export default function RootLayout({
           social={{ providers: ['google'] }}
         >
           <Providers>
+            <BetaBanner />
             <Navbar />
             <main className="flex-grow">
               {children}
             </main>
             <Footer />
+            <CookieConsent />
           </Providers>
         </NeonAuthUIProvider>
       </body>
