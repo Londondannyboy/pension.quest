@@ -230,3 +230,8 @@ pillar: true/false
 - **UK-focused**: Content is specifically for UK pensions (State Pension, workplace, SIPP, etc.)
 - **Authoritative sources**: Always link to GOV.UK and official sources
 - **Mobile-first**: Responsive design, especially for calculators
+
+### Jan 18, 2026 (Evening)
+- Fixed package.json name (was incorrectly set to aionysus-wine)
+- Re-linked Vercel to correct project
+- Cleaned up wine-related file contamination
